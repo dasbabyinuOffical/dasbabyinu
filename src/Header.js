@@ -1,9 +1,14 @@
-import { Layout, Menu, Affix } from "antd";
+import { Layout, Menu, Affix, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import MetaMask from "./MetaMask";
+import Logo from "./images/logo.png";
 
 const title = [
-  { key: "1", label: <Link to="/">Home</Link> },
+  {
+    key: "1",
+    label: <Link to="/">Home</Link>,
+    icon: <Avatar src={Logo} />,
+  },
   {
     key: "2",
     label: <Link to="/nft">Nft</Link>,
