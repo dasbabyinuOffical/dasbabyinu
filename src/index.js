@@ -11,8 +11,8 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route index element={<Home />} />
-      <Route path="/whitePaper" element={<WhitePaper />} />
-      <Route path="/nft" element={<Nft />} />
+      <Route path="whitePaper" element={<WhitePaper />} />
+      <Route path="nft" element={<Nft />} />
     </Routes>
   </BrowserRouter>
 );

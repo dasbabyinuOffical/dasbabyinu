@@ -24,7 +24,7 @@ function Media() {
       </a>
       <a
         className="media"
-        href="/whitePaper"
+        href="whitePaper"
         target="_blank"
         rel="noopener noreferrer"
       >

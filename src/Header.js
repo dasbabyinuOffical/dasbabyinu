@@ -11,7 +11,7 @@ const title = [
   },
   {
     key: "2",
-    label: <Link to="/nft">Nft</Link>,
+    label: <Link to="nft">Nft</Link>,
   },
 ];
 
