@@ -1,6 +1,5 @@
 import Roadmap from "./Roadmap.js";
 import Why from "./Why.js";
-import TokenSupply from "./TokenSupply.js";
 import { Layout, Col, Row } from "antd";
 import Info from "./Info.js";
 
