@@ -1,7 +1,6 @@
 import "./App.css";
 import Home from "./Home.js";
 import Nft from "./Nft.js";
-import Footer from "./Footer.js";
 import WhitePaper from "./WhitePaper";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
@@ -14,7 +13,6 @@ function App() {
         <Route path="/whitePaper" element={<WhitePaper />} />
         <Route path="/nft" element={<Nft />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Mint from "./Mint";
 import Header from "./Header.js";
+import Footer from "./Footer.js";
 
 const borderBrone = "0.5rem solid #C47222";
 const borderSilver = "0.5rem solid #c0c0c0";
@@ -74,6 +75,7 @@ function Nft() {
           total={1000}
         />
       </Layout.Content>
+      <Footer />
     </Layout>
   );
 }

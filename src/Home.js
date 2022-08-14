@@ -3,6 +3,7 @@ import Why from "./Why.js";
 import { Layout, Col, Row } from "antd";
 import Info from "./Info.js";
 import Header from "./Header.js";
+import Footer from "./Footer.js";
 
 function Home() {
   return (
@@ -27,6 +28,7 @@ function Home() {
           </Col>
         </Row>
       </Layout.Content>
+      <Footer />
     </Layout>
   );
 }
