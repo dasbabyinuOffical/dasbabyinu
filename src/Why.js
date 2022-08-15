@@ -6,7 +6,7 @@ function Why() {
   return (
     <Card title="Why DasBaby Token?" bordered={true}>
       <div>1. DasBaby was inspired by ElonMusk.</div>
-      <Image src={musk} alt="musk" />
+      <Image src={musk} alt="musk" height={"23rem"} />
       <Divider />
       <div>2. DasBaby is 100% driven by Community.</div>
       <Divider />
