@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Button } from "antd";
+import React from "react";
 
-function MetaMask() {
-  const [provider, setProvider] = useState(null);
-  const [account, setAccount] = useState(null);
+declare var window: any;
+
+let storage = new Map<string,any>()
+const  MetaMask: React.FC = () => {
+  const [provider, setProvider] = useState({});
+  const [account, setAccount] = useState({});
 
   const connectWallet = async () => {
     if (!window.ethereum) {
       return;
     }
     if (
-      localStorage.getItem("providerWeb3") &&
-      localStorage.getItem("account")
+      storage.get("providerWeb3") &&
+      storage.get("account")
     ) {
       return;
     }
@@ -22,9 +26,9 @@ function MetaMask() {
     const accounts = await providerWeb3.send("eth_requestAccounts", []);
     if (accounts.length > 0) {
       setProvider(providerWeb3);
-      localStorage.setItem("providerWeb3", providerWeb3);
+      storage.set("providerWeb3", providerWeb3);
       setAccount(accounts[0]);
-      localStorage.setItem("account", accounts[0]);
+      storage.set("account", accounts[0]);
     }
   };
 

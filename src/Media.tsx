@@ -1,10 +1,12 @@
-import Twitter from "./images/twitter.svg";
-import Telegram from "./images/telegram.svg";
-import Book from "./images/book.svg";
-import Pancake from "./images/pancake.svg";
+import React from "react";
 
-function Media() {
-  return (
+let  Twitter =  require( "./images/twitter.svg");
+let  Telegram = require("./images/telegram.svg");
+let  Book  = require("./images/book.svg");
+let  Pancake  = require( "./images/pancake.svg");
+
+const  Media: React.FC = () =>
+  (
     <div>
       <a
         className="media"
@@ -12,7 +14,7 @@ function Media() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img alt="Twitter" src={Twitter} width="40" height="40"></img>
+        <img alt="Twitter" src={Twitter.default} width="40" height="40"></img>
       </a>
       <a
         className="media"
@@ -20,7 +22,7 @@ function Media() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img alt="Telegram" src={Telegram} width="40" height="40"></img>
+        <img alt="Telegram" src={Telegram.default} width="40" height="40"></img>
       </a>
       <a
         className="media"
@@ -28,7 +30,7 @@ function Media() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img alt="WhiteBook" src={Book} width="40" height="40"></img>
+        <img alt="WhiteBook" src={Book.default} width="40" height="40"></img>
       </a>
       <a
         className="media"
@@ -36,10 +38,9 @@ function Media() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img alt="PancakeSwap" src={Pancake} width="100" height="40"></img>
+        <img alt="PancakeSwap" src={Pancake.default} width="100" height="40"></img>
       </a>
     </div>
   );
-}
 
 export default Media;

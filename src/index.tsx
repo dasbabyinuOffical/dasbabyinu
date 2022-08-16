@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Home from "./Home.js";
-import App from "./App.js";
-import Nft from "./Nft.js";
-import WhitePaper from "./WhitePaper";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import App from "./App";
+import Nft from "./Nft";
+import WhitePaper from "./WhitePaper";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const rootElement = document.getElementById("root") as HTMLElement;
+const root = ReactDOM.createRoot(rootElement);
 root.render(
   <BrowserRouter>
     <Routes>

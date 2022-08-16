@@ -1,10 +1,11 @@
-import Roadmap from "./Roadmap.js";
-import Why from "./Why.js";
+import Roadmap from "./Roadmap";
+import Why from "./Why";
 import { Col, Row } from "antd";
-import Info from "./Info.js";
+import Info from "./Info";
+import React from "react";
 
-function Home() {
-  return (
+const  Home:React.FC = () =>
+  (
     <Row>
       <Col xs={24} md={8}>
         <Info />
@@ -17,6 +18,5 @@ function Home() {
       </Col>
     </Row>
   );
-}
 
 export default Home;

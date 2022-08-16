@@ -4,8 +4,9 @@ import "echarts/lib/component/title";
 import "echarts/lib/component/legend";
 import "echarts/lib/component/markPoint";
 import ReactEcharts from "echarts-for-react";
+import React from "react";
 
-function TokenSupply() {
+const  TokenSupply: React.FC  = () =>{
   const getOption = () => {
     let option = {
       title: {

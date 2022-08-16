@@ -1,9 +1,11 @@
-import musk from "./images/musk.jpeg";
-import lp from "./images/lp.jpg";
 import { Card, Divider, Image } from "antd";
+import React from "react";
 
-function Why() {
-  return (
+let musk =  require("./images/musk.jpeg");
+let lp = require("./images/lp.jpg");
+
+const Why: React.FC = () =>
+  (
     <Card title="Why DasBaby Token?" bordered={true}>
       <div>1. DasBaby was inspired by ElonMusk.</div>
       <Image src={musk} alt="musk" height={"23rem"} />
@@ -16,6 +18,5 @@ function Why() {
       <div>4. DasBaby will lunch many app include NFT/Game/Defi/SocialFi</div>
     </Card>
   );
-}
 
 export default Why;

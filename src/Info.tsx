@@ -1,11 +1,12 @@
 import { Card, Divider, Statistic } from "antd";
-import TokenSupply from "./TokenSupply.js";
-import Media from "./Media.js";
+import TokenSupply from "./TokenSupply";
+import Media from "./Media";
+import React from "react";
 
 const contract = "0x8e849671C0516Fd9A74075F2349A78390D52aa28";
 
-function Info() {
-  return (
+const Info:React.FC = () => 
+  (
     <Card title="Info" bordered={true}>
       <Statistic title="Media" valueRender={() => <Media />} />
       <Statistic
@@ -21,6 +22,5 @@ function Info() {
       <TokenSupply />
     </Card>
   );
-}
 
 export default Info;

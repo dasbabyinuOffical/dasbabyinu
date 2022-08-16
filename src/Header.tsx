@@ -1,8 +1,9 @@
 import { Layout, Menu, Affix, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import MetaMask from "./MetaMask";
-import Logo from "./images/logo.png";
+import React from "react";
 
+let  Logo =  require("./images/logo.png");
 const title = [
   {
     key: "1",
@@ -15,8 +16,8 @@ const title = [
   },
 ];
 
-function Header() {
-  return (
+const  Header:React.FC = () =>
+  (
     <Layout.Header
       style={{
         position: "fixed",
@@ -36,6 +37,5 @@ function Header() {
       </Affix>
     </Layout.Header>
   );
-}
 
 export default Header;

@@ -1,6 +1,8 @@
 import { Layout } from "antd";
-function Footer() {
-  return (
+import React from "react";
+
+const Footer:React.FC = () =>
+  (
     <Layout.Footer
       style={{
         textAlign: "center",
@@ -9,6 +11,5 @@ function Footer() {
       DasBabyInu ©2018 Created by DasBaby Dev
     </Layout.Footer>
   );
-}
 
 export default Footer;

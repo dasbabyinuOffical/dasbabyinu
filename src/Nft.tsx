@@ -6,13 +6,13 @@ const borderBrone = "0.5rem solid #C47222";
 const borderSilver = "0.5rem solid #c0c0c0";
 
 function Nft() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<[{id:number,name:string,image:string}]>([{id:1,name:"silver - #1",image:"http://dasbabyinu.com/genesis/1.jpg"}]);
   const [cursor, setCursor] = useState({
     min: 0,
     max: 10,
   });
 
-  const onChange = (page, pageSize) => {
+  const onChange = (page: number, pageSize: number) => {
     setCursor({
       min: (page - 1) * pageSize,
       max: page * pageSize,
@@ -22,9 +22,9 @@ function Nft() {
   useEffect(() => {
     const url = "http://dasbabyinu.com/nft/?start=1&&page=1000";
     axios.get(url).then((res) => {
-      setData([...data, ...res.data]);
+      setData(res.data);
     });
-  }, [data]);
+  }, []);
 
   return (
     <>

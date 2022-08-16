@@ -1,4 +1,5 @@
 import { Card, List, Avatar } from "antd";
+import React from "react";
 const roadmap = [
   {
     title: "Step 1",
@@ -41,8 +42,8 @@ const roadmap = [
   },
 ];
 
-function Roadmap() {
-  return (
+const  Roadmap: React.FC = () =>
+  (
     <Card title="Roadmap" bordered={true}>
       <List
         itemLayout="vertical"
@@ -61,6 +62,5 @@ function Roadmap() {
       />
     </Card>
   );
-}
 
 export default Roadmap;

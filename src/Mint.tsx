@@ -3,12 +3,15 @@ import Genesis from "./file/Genesis.json";
 import { Button, notification } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import React from "react";
+
+declare var window: any;
 
 const contract = "0x74155e8E00D19083033d3f58C0BA25eAE1856f84";
 
-function Mint({ id }) {
+function Mint(props: { id: number}) {
   const [disabled, setDisabled] = useState(true);
-  const url = "http://dasbabyinu.com/nft/owner/" + id;
+  const url = "http://dasbabyinu.com/nft/owner/" + props.id;
   useEffect(() => {
     axios.get(url).then((res) => {
       if (res.data === "0") {
@@ -17,9 +20,9 @@ function Mint({ id }) {
       }
       setDisabled(true);
     });
-  }, []);
+  }, [url]);
 
-  const openNotification = (message) => {
+  const openNotification = (message:string) => {
     const args = {
       message: "Mint Failed",
       description: message,
@@ -28,7 +31,7 @@ function Mint({ id }) {
     notification.open(args);
   };
 
-  const mintNft = async (index) => {
+  const mintNft = async (index: number) => {
     if (!window.ethereum) {
       return;
     }
@@ -46,11 +49,13 @@ function Mint({ id }) {
       const transactionReceipt = await transaction.wait();
       console.log(transactionReceipt);
     } catch (e) {
-      openNotification(e.reason);
+      let reason = "Unknown Error"
+      if (e instanceof Error) reason = e.message;
+      openNotification(reason);
     }
   };
   return (
-    <Button type="danger" onClick={() => mintNft(id)} disabled={disabled}>
+    <Button type="primary" onClick={() => mintNft(props.id)} disabled={disabled}>
       Mint
     </Button>
   );

@@ -1,10 +1,10 @@
-import Header from "./Header.js";
-import Footer from "./Footer.js";
+import Header from "./Header";
+import Footer from "./Footer";
 import { Layout } from "antd";
 import React from "react";
 
-function App({ Component }) {
-  return (
+const  App = (props: { Component: React.ReactElement}) => 
+  (
     <Layout>
       <Header />
       <Layout.Content
@@ -14,11 +14,10 @@ function App({ Component }) {
           marginTop: 64,
         }}
       >
-        {Component}
+        {props.Component}
       </Layout.Content>
       <Footer />
     </Layout>
   );
-}
 
 export default App;
