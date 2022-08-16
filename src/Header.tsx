@@ -12,7 +12,11 @@ const title = [
   },
   {
     key: "2",
-    label: <Link to="nft">Nft</Link>,
+    label: <Link to="/nft">Nft</Link>,
+  },
+    {
+    key: "3",
+    label: <Link to="/trade">Trade</Link>,
   },
 ];
 
