@@ -1,55 +1,58 @@
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import {  useState } from "react";
+import { ethers,providers } from "ethers";
 import { Button } from "antd";
 import React from "react";
 
 declare var window: any;
 
-let storage = new Map<string,any>()
 const  MetaMask: React.FC = () => {
-  const [provider, setProvider] = useState({});
-  const [account, setAccount] = useState({});
+  const [provider, setProvider] = useState<providers.Web3Provider|undefined>();
+  const [account, setAccount] = useState<string|undefined>();
 
   const connectWallet = async () => {
     if (!window.ethereum) {
       return;
     }
-    if (
-      storage.get("providerWeb3") &&
-      storage.get("account")
-    ) {
+    if ( provider && account) {
       return;
     }
 
     const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
 
     const accounts = await providerWeb3.send("eth_requestAccounts", []);
+    console.log("provider is:",providerWeb3)
+    console.log("accounts is:",accounts)
     if (accounts.length > 0) {
       setProvider(providerWeb3);
-      storage.set("providerWeb3", providerWeb3);
       setAccount(accounts[0]);
-      storage.set("account", accounts[0]);
     }
   };
 
-  useEffect(() => {
-    const providerWeb3 = localStorage.getItem("providerWeb3");
-    if (providerWeb3) {
-      setProvider(providerWeb3);
+  const disConnectWallet = async () => {
+    if (provider&& account) {
+      setAccount(undefined);
+      setProvider(undefined);
     }
+  }
 
-    const myAccount = localStorage.getItem("account");
-    if (myAccount) {
-      setAccount(myAccount);
+  const walletHandler = async () => {
+    if (provider && account) {
+      console.log("disconnect");
+      await disConnectWallet();
+      return ;
     }
-  }, []);
+    console.log("connect");
+    connectWallet();
+  }
 
   return (
-    <Button onClick={connectWallet} type="primary">
-      {!window.ethereum && "Install MetaMask Wallet"}
-      {window.ethereum && !provider && "Connect Wallet"}
-      {provider && account && "Disconnect Wallet"}
-    </Button>
+      <Button onClick={walletHandler} type="primary">
+      {!window.ethereum && "Install MetaMask"}
+      {window.ethereum && !provider && "Connect"}
+      {provider && account && `${account.slice(0,6)},Disconnect`}
+      </Button>
+
+    
   );
 }
 
