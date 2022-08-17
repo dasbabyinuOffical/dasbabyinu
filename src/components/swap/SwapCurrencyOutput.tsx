@@ -10,9 +10,9 @@ const SwapCurrencyOutput: React.FC = () => (
     <div className='swap-currency'>
         <div className='swap-currency-coin'>
             <div>
-                <img src={Logo}/>
+                <img src={Logo} alt="DasBaby" />
                 <h4>DasBaby</h4>
-                <img src={Arrow.default}/>
+                <img src={Arrow.default} alt="DasBaby"/>
             </div>
             <div>
                 <label>Balance:</label>

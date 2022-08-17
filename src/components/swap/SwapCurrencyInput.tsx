@@ -1,18 +1,29 @@
-import { Input } from 'antd';
+import { Input} from 'antd';
 import React from 'react';
+import {useAppDispatch } from '../../store/Hook';
+import SwapSelectToken from './SwapSelectToken';
+import {setVisiable} from "../../store/swap/TokenSelect"
 
 const {TextArea} = Input;
 
 let BNB = require('../../images/bnb.png');
 let Arrow = require('../../images/arrow.svg');
 
-const SwapCurrencyInput: React.FC = () => (
+const SwapCurrencyInput: React.FC = () => {
+    const dispatch = useAppDispatch();
+    return (
     <div className='swap-currency'>
         <div className='swap-currency-coin'>
-            <div>
-                <img src={BNB}/>
+            <div onClick={()=>{
+                console.log("onClick")
+                dispatch(setVisiable())}
+                }>
+                <img src={BNB} alt="BNB"/>
                 <h3>BNB</h3>
-                <img src={Arrow.default}/>
+                <img src={Arrow.default} alt="arrow"/>
+            </div>
+            <div>
+              <SwapSelectToken/>
             </div>
             <div>
                 <label>Balance:</label>
@@ -27,6 +38,7 @@ const SwapCurrencyInput: React.FC = () => (
             </div>
         </div>
     </div>
-);
+    );
+}
 
 export default SwapCurrencyInput;

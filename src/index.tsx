@@ -8,15 +8,20 @@ import Nft from "./Nft";
 import Trade from "./Trade";
 import WhitePaper from "./WhitePaper";
 
+import { Provider } from 'react-redux';
+import store from './store/Store';
+
 const rootElement = document.getElementById("root") as HTMLElement;
 const root = ReactDOM.createRoot(rootElement);
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route index element={<App Component={<Home />} />} />
-      <Route path="whitePaper" element={<WhitePaper />} />
-      <Route path="nft" element={<App Component={<Nft />} />} />
-      <Route path="trade" element={<App Component={<Trade />} />} />
-    </Routes>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<App Component={<Home />} />} />
+        <Route path="whitePaper" element={<WhitePaper />} />
+        <Route path="nft" element={<App Component={<Nft />} />} />
+        <Route path="trade" element={<App Component={<Trade />} />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 );
