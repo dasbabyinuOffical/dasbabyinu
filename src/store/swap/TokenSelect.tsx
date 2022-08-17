@@ -13,11 +13,9 @@ const tokenSelectSlice = createSlice({
     initialState: initialState,
     reducers:{
         setVisiable: state => {
-            console.log("setVisiable");
             state.value = true;
         },
         setInVisiable: state => {
-            console.log("setInVisiable");
             state.value = false;
         }
     }
