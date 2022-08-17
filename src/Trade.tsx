@@ -1,12 +1,13 @@
 import { Tabs } from 'antd';
 import React from 'react';
+import Swap from './components/swap/Swap';
 
 const { TabPane } = Tabs;
 
 const Trade: React.FC = () =>(
     <Tabs defaultActiveKey="1" centered size="large" animated={true}>
     <TabPane tab="Swap" key="1">
-      Content of Tab Pane 1
+      <Swap/>
     </TabPane>
     <TabPane tab="Limit" key="2">
       Content of Tab Pane 2

@@ -1,0 +1,131 @@
+
+.swap-header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.swap-header div:nth-child(n+2){
+    width: 8rem;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+.swap-header-chart{
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.swap-header div img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.swap-currency-coin{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.swap-currency-coin div:first-child{
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.swap-currency-coin img{
+    width: 2rem;
+    height: 2rem;
+}
+
+.swap-currency-coin-input{
+    border: 1rem;
+    border-radius: 1rem;
+    background-color:rgb(237, 234, 243);
+    text-align: right;
+}
+
+.swap-currency-coin-input button{
+    margin-left: auto;
+    border-radius: 1rem;
+    font-size: 12px;
+    border-color: rgb(31, 199, 212);
+    background-color: rgb(237, 234, 243);
+    color: rgb(31,199,212);
+    cursor: pointer;
+}
+
+.swap-price{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.swap-price div:last-child{
+    margin-left: auto;
+}
+
+.swap-price div:first-child{
+    color: rgb(118,69,217);
+    margin-right: auto;
+}
+
+.swap-slippage {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.swap-slippage div:last-child{
+    margin-left:auto;
+}
+
+.swap-button{
+    text-align: center;
+}
+
+.swap-feedback{
+    margin: auto;
+    width: 350px;
+    height: 120px;
+    border: 1rem;
+    background-color: white;
+    border-radius: 1.5rem;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.swap-feedback-item{
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.swap-feedback-item div:first-child {
+    color: rgb(122, 110, 170);
+}
+
+.swap-feedback-item div:last-child{
+    margin-left: auto;
+}
