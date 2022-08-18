@@ -1,7 +1,11 @@
 import React from "react";
 import { useAppDispatch } from "../../store/Hook";
 import SwapSettings from "./SwapSettings";
-import { setSettingsVisiable } from "../../store/swap/TokenSelect";
+import {
+  setSettingsVisiable,
+  setRecentTxVisiable,
+} from "../../store/swap/TokenSelect";
+import RecentTx from "./RecentTx";
 const Chart = require("../../images/chart.png");
 const Setting = require("../../images/setting.png");
 const History = require("../../images/history.png");
@@ -25,7 +29,11 @@ function SwapHeader() {
         >
           <img src={Setting} alt="setting" />
         </div>
-        <div>
+        <div
+          onClick={() => {
+            dispatch(setRecentTxVisiable());
+          }}
+        >
           <img src={History} alt="history" />
         </div>
         <div>
@@ -33,6 +41,7 @@ function SwapHeader() {
         </div>
         <div>
           <SwapSettings />
+          <RecentTx />
         </div>
       </div>
       <div style={{ margin: "10px  0 auto", textAlign: "center" }}>

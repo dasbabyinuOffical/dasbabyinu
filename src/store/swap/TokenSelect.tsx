@@ -13,10 +13,12 @@ interface TokenSelectorState {
   inputToken: TokenInfo;
   outputToken: TokenInfo;
   settings: boolean;
+  recentTx: boolean;
 }
 
 const initialState: TokenSelectorState = {
   settings: false,
+  recentTx: false,
   inputToken: {
     name: "BNB",
     symbol: "BNB",
@@ -44,6 +46,12 @@ const tokenSelectSlice = createSlice({
     setSettingsInVisiable: (state) => {
       state.settings = false;
     },
+    setRecentTxVisiable: (state) => {
+      state.recentTx = true;
+    },
+    setRecentTxInVisiable: (state) => {
+      state.recentTx = false;
+    },
     setInputTokenVisiable: (state) => {
       state.inputToken.visibility = true;
     },
@@ -69,6 +77,8 @@ const tokenSelectSlice = createSlice({
 export const {
   setSettingsVisiable,
   setSettingsInVisiable,
+  setRecentTxVisiable,
+  setRecentTxInVisiable,
   setInputTokenVisiable,
   setOutputTokenVisiable,
   setInputTokenInVisiable,
