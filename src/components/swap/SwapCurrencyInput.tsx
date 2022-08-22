@@ -82,6 +82,7 @@ function SwapCurrencyInput() {
               value: value,
               visibility: inputToken.visibility,
             };
+            dispatch(setInputToken(inToken));
 
             getAmountsOut(
               inputToken.contract,
@@ -99,8 +100,6 @@ function SwapCurrencyInput() {
               };
               dispatch(setOutputToken(outToken));
             });
-
-            dispatch(setInputToken(inToken));
           }}
         />
         <div>

@@ -61,6 +61,8 @@ const Tokens: TokenInfo[] = [
 const BaseUrl = "https://pancakeswap.finance/images/tokens/";
 
 function SwapSelectToken() {
+  const outputToken = useAppSelector((state) => state.tokenSelect.outputToken);
+
   const visibility = useAppSelector(
     (state) => state.tokenSelect.inputToken.visibility
   );
@@ -114,6 +116,7 @@ function SwapSelectToken() {
                 <Button
                   type="primary"
                   onClick={() => handleInputTokenImport(item)}
+                  disabled={item.symbol === outputToken.symbol}
                 >
                   Import
                 </Button>
