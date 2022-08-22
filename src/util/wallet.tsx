@@ -70,7 +70,15 @@ export async function getAmountsOut(
   sellAmount: string,
   contractBuy: string
 ): Promise<string> {
+  console.log(
+    "in getAmountsOut:",
+    contractSell,
+    sellAmount,
+    contractBuy,
+    window.ethereum
+  );
   if (!window.ethereum || sellAmount === "") {
+    console.log("exception return.");
     return "0.0";
   }
 

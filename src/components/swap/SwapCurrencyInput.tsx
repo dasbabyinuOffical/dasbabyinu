@@ -84,12 +84,19 @@ function SwapCurrencyInput() {
             };
             dispatch(setInputToken(inToken));
 
+            console.log("swap in change.");
             getAmountsOut(
               inputToken.contract,
               value,
               outputToken.contract
             ).then((res) => {
-              console.log("amountOut is:", res);
+              console.log(
+                "amountOut is:",
+                inputToken.contract,
+                value,
+                outputToken.contract,
+                res
+              );
               const outToken: TokenInfo = {
                 name: outputToken.name,
                 symbol: outputToken.symbol,
