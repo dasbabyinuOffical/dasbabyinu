@@ -9,17 +9,19 @@ import {
 
 const Tokens: TokenInfo[] = [
   {
-    contract: "DasBaby",
+    contract: "0x8e849671C0516Fd9A74075F2349A78390D52aa28",
     name: "DasBaby",
     symbol: "DasBabyInu",
     balance: "0.00",
+    value: "0.0",
     visibility: false,
   },
   {
-    contract: "BNB",
+    contract: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
     name: "BNB",
     symbol: "BNB",
     balance: "0.00",
+    value: "0.0",
     visibility: false,
   },
   {
@@ -27,6 +29,7 @@ const Tokens: TokenInfo[] = [
     name: "BUSD",
     symbol: "BUSD",
     balance: "0.00",
+    value: "0.0",
     visibility: false,
   },
   {
@@ -34,6 +37,7 @@ const Tokens: TokenInfo[] = [
     name: "BTCB",
     symbol: "BTCB",
     balance: "0.00",
+    value: "0.0",
     visibility: false,
   },
   {
@@ -41,6 +45,7 @@ const Tokens: TokenInfo[] = [
     name: "ETH",
     symbol: "ETH",
     balance: "0.00",
+    value: "0.0",
     visibility: false,
   },
   {
@@ -48,6 +53,7 @@ const Tokens: TokenInfo[] = [
     name: "USDT",
     symbol: "USDT",
     balance: "0.00",
+    value: "0.0",
     visibility: false,
   },
 ];
@@ -88,9 +94,14 @@ function SwapSelectToken() {
           dataSource={Tokens}
           renderItem={(item) => {
             let url = BaseUrl + item.contract + ".png";
-            if (item.contract === "BNB") {
+            console.log("output contract is:", item.contract);
+            if (
+              item.contract === "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+            ) {
               url = require("../../images/bnb.png");
-            } else if (item.contract === "DasBaby") {
+            } else if (
+              item.contract === "0x8e849671C0516Fd9A74075F2349A78390D52aa28"
+            ) {
               url = require("../../images/logo.png");
             }
 

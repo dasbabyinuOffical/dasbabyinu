@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/Hook";
 import SwapSelectOutputToken from "./SwapSelectOutputToken";
 import {
@@ -7,12 +7,13 @@ import {
   TokenInfo,
   setOutputToken,
 } from "../../store/swap/TokenSelect";
+import { getBalanceOf } from "../../util/wallet";
 
 const { TextArea } = Input;
 const BaseUrl = "https://pancakeswap.finance/images/tokens/";
 let Arrow = require("../../images/arrow.svg");
 
-const SwapCurrencyInput: React.FC = () => {
+function SwapCurrencyInput() {
   const OutputToken = useAppSelector((state) => state.tokenSelect.outputToken);
   const dispatch = useAppDispatch();
   let name = OutputToken.name;
@@ -22,11 +23,20 @@ const SwapCurrencyInput: React.FC = () => {
     dispatch(setOutputToken(token));
   };
 
-  if (OutputToken.contract === "BNB") {
-    url = require("../../images/bnb.png");
-  } else if (OutputToken.contract === "DasBaby") {
+  if (OutputToken.contract === "0x8e849671C0516Fd9A74075F2349A78390D52aa28") {
     url = require("../../images/logo.png");
   }
+
+  const [balance, setBalance] = useState("0.0");
+  const getBalanceOfInputToken = async () => {
+    if (localStorage.getItem("account")) {
+      const newBalance = await getBalanceOf(
+        OutputToken.contract,
+        localStorage.getItem("account")!
+      );
+      setBalance(newBalance);
+    }
+  };
 
   return (
     <div className="swap-currency">
@@ -53,17 +63,20 @@ const SwapCurrencyInput: React.FC = () => {
           bordered={false}
           allowClear={true}
           placeholder={OutputToken.balance}
-          value={OutputToken.balance}
+          value={OutputToken.value}
           onChange={(e) => {
             e.preventDefault();
-            const token: TokenInfo = {
-              name: OutputToken.name,
-              symbol: OutputToken.symbol,
-              contract: OutputToken.contract,
-              balance: e.target.value,
-              visibility: OutputToken.visibility,
-            };
-            dispatch(setOutputToken(token));
+            getBalanceOfInputToken().then((res) => {
+              const token: TokenInfo = {
+                name: OutputToken.name,
+                symbol: OutputToken.symbol,
+                contract: OutputToken.contract,
+                balance: balance,
+                value: e.target.value,
+                visibility: OutputToken.visibility,
+              };
+              dispatch(setOutputToken(token));
+            });
           }}
         />
         <div>
@@ -74,7 +87,8 @@ const SwapCurrencyInput: React.FC = () => {
                 name: OutputToken.name,
                 symbol: OutputToken.symbol,
                 contract: OutputToken.contract,
-                balance: "0.00",
+                balance: balance,
+                value: balance,
                 visibility: OutputToken.visibility,
               };
 
@@ -88,6 +102,6 @@ const SwapCurrencyInput: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SwapCurrencyInput;

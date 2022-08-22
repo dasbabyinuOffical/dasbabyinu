@@ -5,6 +5,7 @@ export interface TokenInfo {
   symbol: string;
   contract: string;
   balance: string;
+  value: string;
   visibility: boolean;
 }
 
@@ -22,15 +23,17 @@ const initialState: TokenSelectorState = {
   inputToken: {
     name: "BNB",
     symbol: "BNB",
-    contract: "BNB",
+    contract: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
     balance: "0.0",
+    value: "0.0",
     visibility: false,
   },
   outputToken: {
     name: "DasBaby",
     symbol: "DasBabyInu",
-    contract: "DasBaby",
+    contract: "0x8e849671C0516Fd9A74075F2349A78390D52aa28",
     balance: "0.0",
+    value: "0.0",
     visibility: false,
   },
 };
