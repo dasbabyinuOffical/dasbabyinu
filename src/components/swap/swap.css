@@ -86,6 +86,10 @@
   margin-right: auto;
 }
 
+.swap-price-refresh {
+  cursor: pointer;
+}
+
 .swap-slippage {
   display: flex;
   flex-direction: row;

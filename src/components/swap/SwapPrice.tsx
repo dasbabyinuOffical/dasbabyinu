@@ -12,7 +12,10 @@ function SwapPrice() {
   const changePrice = () => {
     getAmountsOut(inputToken.contract, "1", outputToken.contract).then(
       (res) => {
-        setPrice(res);
+        setPrice("0.0");
+        setTimeout(() => {
+          setPrice(res);
+        }, 1000);
       }
     );
   };
@@ -32,7 +35,12 @@ function SwapPrice() {
           per {inputToken.symbol}
         </label>
       </div>
-      <div>
+      <div
+        className="swap-price-refresh"
+        onClick={() => {
+          changePrice();
+        }}
+      >
         <img src={Refresh.default} alt="refresh" />
       </div>
     </div>

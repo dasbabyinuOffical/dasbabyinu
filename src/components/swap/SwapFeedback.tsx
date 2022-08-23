@@ -9,7 +9,7 @@ function SwapFeedback() {
       className="swap-feedback"
       style={{
         display:
-          OutputToken.value === "0.0" || OutputToken.value == ""
+          OutputToken.value === "0.0" || OutputToken.value === ""
             ? "none"
             : "block",
       }}

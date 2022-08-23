@@ -103,12 +103,61 @@ export async function getAmountsOut(
   return Promise.resolve(ret);
 }
 
-function setDecimals(number: string, decimals: number) {
-  number = number.toString();
-  let numberAbs = number.split(".")[0];
-  let numberDecimals = number.split(".")[1] ? number.split(".")[1] : "";
-  while (numberDecimals.length < decimals) {
-    numberDecimals += "0";
+export async function swap(
+  amountIn: string,
+  amountOutMin: string,
+  path: string[],
+  to: string,
+  deadline: number
+): Promise<string> {
+  if (!window.ethereum || amountOutMin === "") {
+    console.log("exception return.");
+    return "";
   }
-  return numberAbs + numberDecimals;
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(
+    RouterContract,
+    RouterAbi,
+    providerWeb3
+  );
+
+  const signer = providerWeb3.getSigner();
+  const daiContractWithSigner = daiContract.connect(signer);
+
+  const decimalSell = await getDecimalOf(path[path.length - 1]);
+  const amountOut = ethers.utils.parseUnits(amountOutMin, decimalSell);
+  if (amountOut.eq(BigInt(0))) {
+    return Promise.resolve("");
+  }
+
+  console.log("path is:", path);
+  if (path[0] === "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c") {
+    console.log("swap:", amountOut.toNumber(), path, to, deadline);
+    const gas = await daiContractWithSigner.estimateGas.swapExactETHForTokens(
+      amountOut,
+      path,
+      to,
+      deadline,
+      {
+        value: ethers.utils.parseEther(amountIn),
+      }
+    );
+
+    const tx = await daiContractWithSigner.swapExactETHForTokens(
+      amountOut,
+      path,
+      to,
+      deadline,
+      {
+        value: ethers.utils.parseEther(amountIn),
+        gasLimit: gas,
+      }
+    );
+
+    const receipt = await tx.wait();
+    console.log(receipt);
+  }
+
+  return Promise.resolve("");
 }
