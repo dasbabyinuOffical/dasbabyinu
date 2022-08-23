@@ -15,11 +15,15 @@ interface TokenSelectorState {
   outputToken: TokenInfo;
   settings: boolean;
   recentTx: boolean;
+  speed: string;
+  slipper: number;
 }
 
 const initialState: TokenSelectorState = {
   settings: false,
   recentTx: false,
+  speed: "Standard",
+  slipper: 0.1,
   inputToken: {
     name: "BNB",
     symbol: "BNB",

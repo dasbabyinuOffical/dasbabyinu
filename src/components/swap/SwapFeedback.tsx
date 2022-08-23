@@ -1,11 +1,15 @@
 import React from "react";
+import { useAppSelector } from "../../store/Hook";
 
 function SwapFeedback() {
+  const OutputToken = useAppSelector((state) => state.tokenSelect.outputToken);
   return (
     <div className="swap-feedback">
       <div className="swap-feedback-item">
         <div>Minimum received</div>
-        <div>80300 DasBaby</div>
+        <div>
+          {OutputToken.value} {OutputToken.symbol}
+        </div>
       </div>
       <div className="swap-feedback-item">
         <div>Price Impact</div>
