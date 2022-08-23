@@ -1,14 +1,28 @@
 import { Button, Input, Modal, Switch, Tooltip } from "antd";
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../store/Hook";
-import { setSettingsInVisiable } from "../../store/swap/TokenSelect";
+import {
+  setSettingsInVisiable,
+  setSelectedSpeed,
+  setSelectedSlipper,
+} from "../../store/swap/TokenSelect";
 
 let Ask = require("../../images/ask.svg");
 
 function SwapSettings() {
   const visibility = useAppSelector((state) => state.tokenSelect.settings);
+  const speed = useAppSelector((state) => state.tokenSelect.speed);
+  const slipper = useAppSelector((state) => state.tokenSelect.slipper);
 
   const dispatch = useAppDispatch();
+
+  const setSpped = (selectedSpped: string) => {
+    dispatch(setSelectedSpeed(selectedSpped));
+  };
+
+  const setSlipper = (selectedSlipper: number) => {
+    dispatch(setSelectedSlipper(selectedSlipper));
+  };
 
   return (
     <Modal
@@ -36,9 +50,36 @@ function SwapSettings() {
         </div>
 
         <div className="swap-slipper-select">
-          <Button type="primary">Standard(5)</Button>
-          <Button type="primary">Fast(6)</Button>
-          <Button type="primary">Instant(7)</Button>
+          <Button
+            type="primary"
+            danger={speed === "Standard" ? true : false}
+            onClick={(e) => {
+              e.preventDefault();
+              setSpped("Standard");
+            }}
+          >
+            Standard(5)
+          </Button>
+          <Button
+            type="primary"
+            danger={speed === "Fast" ? true : false}
+            onClick={(e) => {
+              e.preventDefault();
+              setSpped("Fast");
+            }}
+          >
+            Fast(6)
+          </Button>
+          <Button
+            type="primary"
+            danger={speed === "Instant" ? true : false}
+            onClick={(e) => {
+              e.preventDefault();
+              setSpped("Instant");
+            }}
+          >
+            Instant(7)
+          </Button>
         </div>
 
         <div>
@@ -51,10 +92,49 @@ function SwapSettings() {
         </div>
 
         <div className="swap-slipper-select">
-          <Button type="primary">0.1%</Button>
-          <Button type="primary">0.5%</Button>
-          <Button type="primary">1%</Button>
-          <Input suffix="%" />
+          <Button
+            type="primary"
+            danger={slipper === 0.1 ? true : false}
+            onClick={(e) => {
+              e.preventDefault();
+              setSlipper(0.1);
+            }}
+          >
+            0.1%
+          </Button>
+          <Button
+            type="primary"
+            danger={slipper === 0.5 ? true : false}
+            onClick={(e) => {
+              e.preventDefault();
+              setSlipper(0.5);
+            }}
+          >
+            0.5%
+          </Button>
+          <Button
+            type="primary"
+            danger={slipper === 1 ? true : false}
+            onClick={(e) => {
+              e.preventDefault();
+              setSlipper(1);
+            }}
+          >
+            1%
+          </Button>
+          <Input
+            value={slipper}
+            suffix="%"
+            onChange={(e) => {
+              e.preventDefault();
+              const value = e.target.value;
+              let val = Number(value);
+              if (isNaN(val)) {
+                val = 0.1;
+              }
+              setSlipper(val);
+            }}
+          />
         </div>
 
         <div className="swap-slipper-select">

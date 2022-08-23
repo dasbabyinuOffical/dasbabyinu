@@ -77,6 +77,12 @@ const tokenSelectSlice = createSlice({
     setOutputToken: (state, action: PayloadAction<TokenInfo>) => {
       state.outputToken = action.payload;
     },
+    setSelectedSpeed: (state, action: PayloadAction<string>) => {
+      state.speed = action.payload;
+    },
+    setSelectedSlipper: (state, action: PayloadAction<number>) => {
+      state.slipper = action.payload;
+    },
   },
 });
 
@@ -92,6 +98,8 @@ export const {
   setOutputTokenInVisiable,
   setInputToken,
   setOutputToken,
+  setSelectedSpeed,
+  setSelectedSlipper,
 } = tokenSelectSlice.actions;
 
 export default tokenSelectSlice.reducer;
