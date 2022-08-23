@@ -6,6 +6,7 @@ import {
   setOutputToken,
   TokenInfo,
 } from "../../store/swap/TokenSelect";
+import { getAmountsOut } from "../../util/wallet";
 
 const Tokens: TokenInfo[] = [
   {
@@ -68,8 +69,21 @@ function SwapSelectToken() {
   );
   const dispatch = useAppDispatch();
 
-  const handleOutputTokenImport = (token: TokenInfo) => {
-    dispatch(setOutputToken(token));
+  const handleOutputTokenImport = async (token: TokenInfo) => {
+    const res = await getAmountsOut(
+      inputToken.contract,
+      inputToken.value,
+      token.contract
+    );
+    const outToken: TokenInfo = {
+      name: token.name,
+      symbol: token.symbol,
+      contract: token.contract,
+      balance: token.balance,
+      value: res,
+      visibility: token.visibility,
+    };
+    dispatch(setOutputToken(outToken));
   };
 
   return (

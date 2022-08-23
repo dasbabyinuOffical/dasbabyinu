@@ -1,6 +1,7 @@
 import { Input, List, Modal, Avatar, Button } from "antd";
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../store/Hook";
+import { getAmountsOut } from "../../util/wallet";
 import {
   setInputTokenInVisiable,
   setInputToken,
@@ -68,8 +69,21 @@ function SwapSelectToken() {
   );
   const dispatch = useAppDispatch();
 
-  const handleInputTokenImport = (token: TokenInfo) => {
-    dispatch(setInputToken(token));
+  const handleInputTokenImport = async (token: TokenInfo) => {
+    const res = await getAmountsOut(
+      outputToken.contract,
+      outputToken.value,
+      token.contract
+    );
+    const inToken: TokenInfo = {
+      name: token.name,
+      symbol: token.symbol,
+      contract: token.contract,
+      balance: token.balance,
+      value: res,
+      visibility: token.visibility,
+    };
+    dispatch(setInputToken(inToken));
   };
 
   return (

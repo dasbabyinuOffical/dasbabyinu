@@ -9,20 +9,32 @@ function SwapButton() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    if (inputToken.value === "" || Number(inputToken.value) == 0) {
+    if (inputToken.value === "" || Number(inputToken.value) === 0) {
       setStatus(true);
       return;
     }
-    if (outputToken.value === "" || Number(outputToken.value) == 0) {
+    if (outputToken.value === "" || Number(outputToken.value) === 0) {
       setStatus(true);
       return;
     }
     setStatus(false);
   }, [inputToken, outputToken]);
+
+  const doSwap = () => {
+    console.log("swap");
+  };
+
   return (
     <div className="swap-button">
-      <Button type="primary" shape="round" size="large" disabled={status}>
-        Enter an amount
+      <Button
+        type="primary"
+        shape="round"
+        size="large"
+        disabled={status}
+        onClick={doSwap}
+      >
+        {status && "Enter an amount"}
+        {!status && "Swap"}
       </Button>
     </div>
   );
