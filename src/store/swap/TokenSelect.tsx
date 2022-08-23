@@ -17,6 +17,7 @@ interface TokenSelectorState {
   recentTx: boolean;
   speed: string;
   slipper: number;
+  deadline: number;
 }
 
 const initialState: TokenSelectorState = {
@@ -24,6 +25,7 @@ const initialState: TokenSelectorState = {
   recentTx: false,
   speed: "Standard",
   slipper: 0.1,
+  deadline: 20,
   inputToken: {
     name: "BNB",
     symbol: "BNB",
@@ -83,6 +85,9 @@ const tokenSelectSlice = createSlice({
     setSelectedSlipper: (state, action: PayloadAction<number>) => {
       state.slipper = action.payload;
     },
+    setSelectedDeadline: (state, action: PayloadAction<number>) => {
+      state.deadline = action.payload;
+    },
   },
 });
 
@@ -100,6 +105,7 @@ export const {
   setOutputToken,
   setSelectedSpeed,
   setSelectedSlipper,
+  setSelectedDeadline,
 } = tokenSelectSlice.actions;
 
 export default tokenSelectSlice.reducer;

@@ -5,6 +5,7 @@ import {
   setSettingsInVisiable,
   setSelectedSpeed,
   setSelectedSlipper,
+  setSelectedDeadline,
 } from "../../store/swap/TokenSelect";
 
 let Ask = require("../../images/ask.svg");
@@ -13,6 +14,7 @@ function SwapSettings() {
   const visibility = useAppSelector((state) => state.tokenSelect.settings);
   const speed = useAppSelector((state) => state.tokenSelect.speed);
   const slipper = useAppSelector((state) => state.tokenSelect.slipper);
+  const deadline = useAppSelector((state) => state.tokenSelect.deadline);
 
   const dispatch = useAppDispatch();
 
@@ -22,6 +24,10 @@ function SwapSettings() {
 
   const setSlipper = (selectedSlipper: number) => {
     dispatch(setSelectedSlipper(selectedSlipper));
+  };
+
+  const setDeadline = (selectedDeadline: number) => {
+    dispatch(setSelectedDeadline(selectedDeadline));
   };
 
   return (
@@ -145,7 +151,18 @@ function SwapSettings() {
             </Tooltip>
           </div>
           <div>
-            <Input defaultValue={20} />
+            <Input
+              defaultValue={deadline}
+              onChange={(e) => {
+                e.preventDefault();
+                const value = e.target.value;
+                let val = Number(value);
+                if (isNaN(val)) {
+                  val = 20;
+                }
+                setDeadline(val);
+              }}
+            />
           </div>
         </div>
 
