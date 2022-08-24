@@ -15,6 +15,7 @@ interface TokenSelectorState {
   outputToken: TokenInfo;
   settings: boolean;
   recentTx: boolean;
+  txList: string[];
   speed: string;
   slipper: number;
   deadline: number;
@@ -23,6 +24,7 @@ interface TokenSelectorState {
 const initialState: TokenSelectorState = {
   settings: false,
   recentTx: false,
+  txList: [],
   speed: "Standard",
   slipper: 0.1,
   deadline: 20,
@@ -88,6 +90,9 @@ const tokenSelectSlice = createSlice({
     setSelectedDeadline: (state, action: PayloadAction<number>) => {
       state.deadline = action.payload;
     },
+    setSelectedTxList: (state, action: PayloadAction<string[]>) => {
+      state.txList = action.payload;
+    },
   },
 });
 
@@ -106,6 +111,7 @@ export const {
   setSelectedSpeed,
   setSelectedSlipper,
   setSelectedDeadline,
+  setSelectedTxList,
 } = tokenSelectSlice.actions;
 
 export default tokenSelectSlice.reducer;
