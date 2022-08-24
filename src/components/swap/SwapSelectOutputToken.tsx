@@ -63,6 +63,7 @@ const BaseUrl = "https://pancakeswap.finance/images/tokens/";
 
 function SwapSelectToken() {
   const inputToken = useAppSelector((state) => state.tokenSelect.inputToken);
+  const outputToken = useAppSelector((state) => state.tokenSelect.outputToken);
 
   const visibility = useAppSelector(
     (state) => state.tokenSelect.outputToken.visibility
@@ -70,10 +71,19 @@ function SwapSelectToken() {
   const dispatch = useAppDispatch();
 
   const handleOutputTokenImport = async (token: TokenInfo) => {
+    let path: string[] = [inputToken.contract, outputToken.contract];
+    if (inputToken.symbol !== "BNB" && outputToken.symbol !== "BNB") {
+      path = [
+        inputToken.contract,
+        "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+        outputToken.contract,
+      ];
+    }
     const res = await getAmountsOut(
       inputToken.contract,
       inputToken.value,
-      token.contract
+      token.contract,
+      path
     );
     const outToken: TokenInfo = {
       name: token.name,

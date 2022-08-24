@@ -83,20 +83,31 @@ function SwapCurrencyInput() {
             };
             dispatch(setOutputToken(outToken));
 
-            getAmountsOut(outToken.contract, value, inputToken.contract).then(
-              (res) => {
-                console.log("amountOut is:", res);
-                const inToken: TokenInfo = {
-                  name: inputToken.name,
-                  symbol: inputToken.symbol,
-                  contract: inputToken.contract,
-                  balance: inputToken.balance,
-                  value: res,
-                  visibility: inputToken.visibility,
-                };
-                dispatch(setInputToken(inToken));
-              }
-            );
+            let path: string[] = [outToken.contract, inputToken.contract];
+            if (inputToken.symbol !== "BNB" && outToken.symbol !== "BNB") {
+              path = [
+                inputToken.contract,
+                "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+                outToken.contract,
+              ];
+            }
+            getAmountsOut(
+              outToken.contract,
+              value,
+              inputToken.contract,
+              path
+            ).then((res) => {
+              console.log("amountOut is:", res);
+              const inToken: TokenInfo = {
+                name: inputToken.name,
+                symbol: inputToken.symbol,
+                contract: inputToken.contract,
+                balance: inputToken.balance,
+                value: res,
+                visibility: inputToken.visibility,
+              };
+              dispatch(setInputToken(inToken));
+            });
           }}
         />
         <div>
@@ -114,11 +125,26 @@ function SwapCurrencyInput() {
                 };
                 handleOutputTokenMax(token);
 
+                let path: string[] = [
+                  OutputToken.contract,
+                  inputToken.contract,
+                ];
+                if (
+                  inputToken.symbol !== "BNB" &&
+                  OutputToken.symbol !== "BNB"
+                ) {
+                  path = [
+                    inputToken.contract,
+                    "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+                    OutputToken.contract,
+                  ];
+                }
                 // output token.
                 getAmountsOut(
                   OutputToken.contract,
                   res!,
-                  inputToken.contract
+                  inputToken.contract,
+                  path
                 ).then((res) => {
                   console.log("amountOut is:", res);
                   const inToken: TokenInfo = {

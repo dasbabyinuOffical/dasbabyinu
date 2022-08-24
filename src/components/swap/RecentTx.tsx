@@ -1,5 +1,5 @@
 import { Modal, List } from "antd";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/Hook";
 import {
   setRecentTxInVisiable,

@@ -10,7 +10,15 @@ function SwapPrice() {
 
   const [price, setPrice] = useState("0.0");
   const changePrice = () => {
-    getAmountsOut(inputToken.contract, "1", outputToken.contract).then(
+    let path: string[] = [inputToken.contract, outputToken.contract];
+    if (inputToken.symbol !== "BNB" && outputToken.symbol !== "BNB") {
+      path = [
+        inputToken.contract,
+        "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+        outputToken.contract,
+      ];
+    }
+    getAmountsOut(inputToken.contract, "1", outputToken.contract, path).then(
       (res) => {
         setPrice("0.0");
         setTimeout(() => {

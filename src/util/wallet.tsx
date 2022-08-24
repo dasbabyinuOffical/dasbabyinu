@@ -68,7 +68,8 @@ export async function getDecimalOf(daiAddress: string): Promise<number> {
 export async function getAmountsOut(
   contractSell: string,
   sellAmount: string,
-  contractBuy: string
+  contractBuy: string,
+  path: string[]
 ): Promise<string> {
   console.log(
     "in getAmountsOut:",
@@ -97,9 +98,11 @@ export async function getAmountsOut(
     return Promise.resolve("0.0");
   }
 
-  const path: string[] = [contractSell, contractBuy];
   const amountOut = await daiContract.getAmountsOut(sellAmountNum, path);
-  const ret = ethers.utils.formatUnits(amountOut[1].toString(), decimalBuy);
+  const ret = ethers.utils.formatUnits(
+    amountOut[amountOut.length - 1].toString(),
+    decimalBuy
+  );
   return Promise.resolve(ret);
 }
 
@@ -205,5 +208,52 @@ export async function swap(
     if (e instanceof Error) reason = e.message;
     return Promise.resolve(reason);
   }
-  return Promise.resolve("");
+
+  // buy and sell not bnb
+
+  try {
+    const decimalIn = await getDecimalOf(path[0]);
+    console.log("decimalIn is:", amountInMin, decimalIn);
+    const amountIn = ethers.utils.parseUnits(amountInMin, decimalIn);
+    const decimalOut = await getDecimalOf(path[path.length - 1]);
+    console.log("decimalOut is:", amountOutMin, decimalOut);
+    const amountOut = ethers.utils.parseUnits(amountOutMin, decimalOut);
+    console.log(
+      "swap:",
+      amountIn.toString(),
+      amountOut.toString(),
+      path,
+      to,
+      deadline
+    );
+    const gas =
+      await daiContractWithSigner.estimateGas.swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        amountIn,
+        amountOut,
+        path,
+        to,
+        deadline
+      );
+
+    console.log("gas is:", gas);
+    const tx =
+      await daiContractWithSigner.swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        amountIn,
+        amountOut,
+        path,
+        to,
+        deadline,
+        {
+          gasLimit: gas,
+        }
+      );
+
+    console.log("tx is:", tx);
+    tx.wait();
+    return Promise.resolve(tx.hash);
+  } catch (e) {
+    let reason = "Unknown Error";
+    if (e instanceof Error) reason = e.message;
+    return Promise.resolve(reason);
+  }
 }

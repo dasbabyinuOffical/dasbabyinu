@@ -85,10 +85,20 @@ function SwapCurrencyInput() {
             dispatch(setInputToken(inToken));
 
             console.log("swap in change.");
+            let path: string[] = [inputToken.contract, outputToken.contract];
+            if (inputToken.symbol !== "BNB" && outputToken.symbol !== "BNB") {
+              path = [
+                inputToken.contract,
+                "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+                outputToken.contract,
+              ];
+            }
+
             getAmountsOut(
               inputToken.contract,
               value,
-              outputToken.contract
+              outputToken.contract,
+              path
             ).then((res) => {
               console.log(
                 "amountOut is:",
@@ -124,11 +134,26 @@ function SwapCurrencyInput() {
                 };
                 handleInputTokenMax(token);
 
+                let path: string[] = [
+                  inputToken.contract,
+                  outputToken.contract,
+                ];
+                if (
+                  inputToken.symbol !== "BNB" &&
+                  outputToken.symbol !== "BNB"
+                ) {
+                  path = [
+                    inputToken.contract,
+                    "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+                    outputToken.contract,
+                  ];
+                }
                 // output token.
                 getAmountsOut(
                   inputToken.contract,
                   res!,
-                  outputToken.contract
+                  outputToken.contract,
+                  path
                 ).then((res) => {
                   console.log("amountOut is:", res);
                   const outToken: TokenInfo = {
