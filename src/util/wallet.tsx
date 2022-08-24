@@ -104,7 +104,7 @@ export async function getAmountsOut(
 }
 
 export async function swap(
-  amountIn: string,
+  amountInMin: string,
   amountOutMin: string,
   path: string[],
   to: string,
@@ -125,23 +125,23 @@ export async function swap(
   const signer = providerWeb3.getSigner();
   const daiContractWithSigner = daiContract.connect(signer);
 
-  const decimalSell = await getDecimalOf(path[path.length - 1]);
-  const amountOut = ethers.utils.parseUnits(amountOutMin, decimalSell);
-  if (amountOut.eq(BigInt(0))) {
-    return Promise.resolve("");
-  }
-
   console.log("path is:", path);
   try {
+    // buy use bnb
     if (path[0] === "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c") {
-      console.log("swap:", amountOut.toNumber(), path, to, deadline);
+      const decimalOut = await getDecimalOf(path[path.length - 1]);
+      const amountOut = ethers.utils.parseUnits(amountOutMin, decimalOut);
+      console.log("swap:", amountOut.toString(), path, to, deadline);
+      if (amountOut.eq(BigInt(0))) {
+        return Promise.resolve("");
+      }
       const gas = await daiContractWithSigner.estimateGas.swapExactETHForTokens(
         amountOut,
         path,
         to,
         deadline,
         {
-          value: ethers.utils.parseEther(amountIn),
+          value: ethers.utils.parseEther(amountInMin),
         }
       );
 
@@ -151,10 +151,50 @@ export async function swap(
         to,
         deadline,
         {
-          value: ethers.utils.parseEther(amountIn),
+          value: ethers.utils.parseEther(amountInMin),
           gasLimit: gas,
         }
       );
+
+      console.log("tx is:", tx);
+      tx.wait();
+      return Promise.resolve(tx.hash);
+    }
+
+    // sell to bnb
+    if (
+      path[path.length - 1] === "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+    ) {
+      const decimalIn = await getDecimalOf(path[0]);
+      const amountIn = ethers.utils.parseUnits(amountInMin, decimalIn);
+      console.log(
+        "swap:",
+        amountIn.toString(),
+        ethers.utils.parseEther(amountOutMin).toString(),
+        path,
+        to,
+        deadline
+      );
+      const gas =
+        await daiContractWithSigner.estimateGas.swapExactTokensForETHSupportingFeeOnTransferTokens(
+          amountIn,
+          ethers.utils.parseEther(amountOutMin),
+          path,
+          to,
+          deadline
+        );
+
+      const tx =
+        await daiContractWithSigner.swapExactTokensForETHSupportingFeeOnTransferTokens(
+          amountIn,
+          ethers.utils.parseEther(amountOutMin),
+          path,
+          to,
+          deadline,
+          {
+            gasLimit: gas,
+          }
+        );
 
       console.log("tx is:", tx);
       tx.wait();

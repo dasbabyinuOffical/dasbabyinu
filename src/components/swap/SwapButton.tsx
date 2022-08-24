@@ -8,6 +8,7 @@ function SwapButton() {
   const inputToken = useAppSelector((state) => state.tokenSelect.inputToken);
   const outputToken = useAppSelector((state) => state.tokenSelect.outputToken);
   const deadline = useAppSelector((state) => state.tokenSelect.deadline);
+  const slipper = useAppSelector((state) => state.tokenSelect.slipper);
   const txList = useAppSelector((state) => state.tokenSelect.txList);
   const dispatch = useAppDispatch();
 
@@ -38,17 +39,24 @@ function SwapButton() {
       ];
     }
     const deadlineTs = Date.parse(new Date().toString()) + deadline;
-    swap(inputToken.value, outputToken.value, path, account!, deadlineTs).then(
-      (res) => {
-        console.log("swap res is:", res);
-        openNotification(res);
 
-        // success return txHash,which len is 66.
-        if (res.length === 66) {
-          dispatch(setSelectedTxList([res, ...txList]));
-        }
+    const outputVal: Number = Number(outputToken.value) * (1 - slipper);
+
+    swap(
+      inputToken.value,
+      outputVal.toString(),
+      path,
+      account!,
+      deadlineTs
+    ).then((res) => {
+      console.log("swap res is:", res);
+      openNotification(res);
+
+      // success return txHash,which len is 66.
+      if (res.length === 66) {
+        dispatch(setSelectedTxList([res, ...txList]));
       }
-    );
+    });
   };
 
   const openNotification = (message: string) => {
