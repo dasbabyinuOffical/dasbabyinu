@@ -132,32 +132,38 @@ export async function swap(
   }
 
   console.log("path is:", path);
-  if (path[0] === "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c") {
-    console.log("swap:", amountOut.toNumber(), path, to, deadline);
-    const gas = await daiContractWithSigner.estimateGas.swapExactETHForTokens(
-      amountOut,
-      path,
-      to,
-      deadline,
-      {
-        value: ethers.utils.parseEther(amountIn),
-      }
-    );
+  try {
+    if (path[0] === "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c") {
+      console.log("swap:", amountOut.toNumber(), path, to, deadline);
+      const gas = await daiContractWithSigner.estimateGas.swapExactETHForTokens(
+        amountOut,
+        path,
+        to,
+        deadline,
+        {
+          value: ethers.utils.parseEther(amountIn),
+        }
+      );
 
-    const tx = await daiContractWithSigner.swapExactETHForTokens(
-      amountOut,
-      path,
-      to,
-      deadline,
-      {
-        value: ethers.utils.parseEther(amountIn),
-        gasLimit: gas,
-      }
-    );
+      const tx = await daiContractWithSigner.swapExactETHForTokens(
+        amountOut,
+        path,
+        to,
+        deadline,
+        {
+          value: ethers.utils.parseEther(amountIn),
+          gasLimit: gas,
+        }
+      );
 
-    const receipt = await tx.wait();
-    console.log(receipt);
+      console.log("tx is:", tx);
+      tx.wait();
+      return Promise.resolve(tx.hash);
+    }
+  } catch (e) {
+    let reason = "Unknown Error";
+    if (e instanceof Error) reason = e.message;
+    return Promise.resolve(reason);
   }
-
   return Promise.resolve("");
 }

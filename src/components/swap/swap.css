@@ -68,6 +68,10 @@
   cursor: pointer;
 }
 
+.swap-change-button {
+  margin: 0.5rem 40%;
+}
+
 .swap-price {
   margin-top: 20px;
   display: flex;
