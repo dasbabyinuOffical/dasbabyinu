@@ -1,0 +1,27 @@
+.howToPlay-title {
+  text-align: center;
+  color: blueviolet;
+  font-size: 40px;
+}
+
+.howToPlay-subTitle {
+  text-align: center;
+}
+
+.specialColor {
+  color: blueviolet;
+}
+
+.howToPlay-card {
+  margin-top: 10px;
+}
+
+.howToPlay-winning-img img {
+  width: 100%;
+  height: 100%;
+}
+
+.howToPlay-prize-img img {
+  width: 100%;
+  height: 100%;
+}

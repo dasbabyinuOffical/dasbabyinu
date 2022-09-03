@@ -7,9 +7,10 @@ import App from "./App";
 import Nft from "./Nft";
 import Trade from "./Trade";
 import WhitePaper from "./WhitePaper";
+import Lottery from "./components/lottery/Lottery";
 
-import { Provider } from 'react-redux';
-import store from './store/Store';
+import { Provider } from "react-redux";
+import store from "./store/Store";
 
 const rootElement = document.getElementById("root") as HTMLElement;
 const root = ReactDOM.createRoot(rootElement);
@@ -21,6 +22,7 @@ root.render(
         <Route path="whitePaper" element={<WhitePaper />} />
         <Route path="nft" element={<App Component={<Nft />} />} />
         <Route path="trade" element={<App Component={<Trade />} />} />
+        <Route path="lottery" element={<App Component={<Lottery />} />} />
       </Routes>
     </BrowserRouter>
   </Provider>
