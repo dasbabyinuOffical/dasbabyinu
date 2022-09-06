@@ -200,3 +200,52 @@
   width: 100%;
   height: 100%;
 }
+
+.buyTickets-prize {
+  background: linear-gradient(rgb(118, 69, 217) 0%, rgb(81, 33, 177) 100%);
+}
+
+.buyTickets-prize h1 {
+  text-align: center;
+  color: white;
+  font-size: 40px;
+}
+
+@media only screen and (min-width: 600px) {
+  .buyTickets-prize h2 {
+    font-size: 40px;
+    color: rgb(253, 171, 50);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 400px;
+    margin: auto;
+  }
+
+  .buyTickets-card {
+    width: 700px;
+    margin: auto;
+  }
+}
+
+.buyTickets-submit {
+  width: 100px;
+  color: rgb(31, 199, 212);
+  margin: auto;
+  cursor: pointer;
+}
+
+.buyTickets-prize-content {
+  background: rgb(250, 249, 250);
+}
+
+.buyTickets-prize-tips {
+  margin: 20px 0;
+}
+
+.buyTickets-prize-title {
+  color: blueviolet;
+  font-weight: bold;
+}
