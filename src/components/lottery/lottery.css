@@ -288,10 +288,6 @@
 }
 
 @media only screen and (min-width: 600px) {
-  .buyTickets-allhistory {
-    width: 650px;
-  }
-
   .buyTickets-winnning-number {
     display: flex;
     flex-direction: row;
@@ -441,6 +437,9 @@
 
 /* 手机端设置 */
 @media only screen and (max-width: 600px) {
+  .buyTickets-allhistory {
+    width: 300px;
+  }
   .buyTickets-winnning-number {
     display: flex;
     flex-direction: row;
@@ -461,65 +460,65 @@
     background-image: url("../../images/number1.svg");
     text-align: center;
     font-size: 20px;
-    margin-left: 10px;
     background-repeat: no-repeat;
     background-size: contain;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
   }
 
   .buyTickets-finish-number :nth-child(2) {
     background-image: url("../../images/number2.svg");
     background-repeat: no-repeat;
     background-size: contain;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     text-align: center;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   .buyTickets-finish-number :nth-child(3) {
     background-image: url("../../images/number3.svg");
     background-repeat: no-repeat;
     background-size: contain;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     text-align: center;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   .buyTickets-finish-number :nth-child(4) {
     background-image: url("../../images/number4.svg");
     background-repeat: no-repeat;
     background-size: contain;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     text-align: center;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   .buyTickets-finish-number :nth-child(5) {
     background-image: url("../../images/number5.svg");
     background-repeat: no-repeat;
     background-size: contain;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     text-align: center;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   .buyTickets-finish-number :nth-child(6) {
     background-image: url("../../images/number6.svg");
     background-repeat: no-repeat;
     background-size: contain;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     text-align: center;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 }

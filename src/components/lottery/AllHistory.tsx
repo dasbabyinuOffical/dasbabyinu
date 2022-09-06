@@ -18,7 +18,7 @@ function AllHistory() {
           <div>Drawn Sep 5, 2022, 8:00 AM</div>
         </div>
       }
-      extra="#648 | Draw: Sep 6, 2022, 8:00 PM"
+      extra="< > >|"
       style={{ marginTop: "20px" }}
     >
       <div className="buyTickets-winnning-number">
