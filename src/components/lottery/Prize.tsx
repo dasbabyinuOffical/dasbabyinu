@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Statistic, Card, Divider, Button, Row, Col, Space } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import BuyTicketsModal from "./BuyTicketsModal";
 
 const { Countdown } = Statistic;
 
@@ -15,6 +16,12 @@ function Prize() {
 
   const changeDetail = () => {
     setDetail(!detail);
+  };
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const handleCancel = () => {
+    setModalVisible(false);
   };
   return (
     <div className="buyTickets-prize">
@@ -53,6 +60,9 @@ function Prize() {
             shape="round"
             type="primary"
             style={{ backgroundColor: "rgb(31, 199, 212)" }}
+            onClick={() => {
+              setModalVisible(true);
+            }}
           >
             BuyTickets
           </Button>
@@ -131,6 +141,10 @@ function Prize() {
           <span>{detail ? <UpOutlined /> : <DownOutlined />}</span>
         </div>
       </Card>
+      <BuyTicketsModal
+        isModalVisible={isModalVisible}
+        handleCancel={handleCancel}
+      />
     </div>
   );
 }
