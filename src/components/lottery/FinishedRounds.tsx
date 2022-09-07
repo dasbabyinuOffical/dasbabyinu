@@ -1,7 +1,6 @@
 import React from "react";
 import { Radio } from "antd";
 import AllHistory from "./AllHistory";
-import YourHistory from "./YourHistory";
 
 function FinishedRounds() {
   return (

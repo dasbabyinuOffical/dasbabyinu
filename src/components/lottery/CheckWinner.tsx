@@ -8,7 +8,7 @@ function CheckWinner() {
   return (
     <div className="buyTickets-winner">
       <div>
-        <img src={ticketLeft} />
+        <img src={ticketLeft} alt="ticketLeft" />
       </div>
       <div>
         <Space direction="vertical">
@@ -21,7 +21,7 @@ function CheckWinner() {
         </Space>
       </div>
       <div>
-        <img src={ticketRight} />
+        <img src={ticketRight} alt="ticketRight" />
       </div>
     </div>
   );

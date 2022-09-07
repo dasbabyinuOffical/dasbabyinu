@@ -171,6 +171,7 @@
   background: linear-gradient(rgb(118, 69, 217) 0%, rgb(69, 42, 122) 100%);
   color: white;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .howToPlay-title {
@@ -521,4 +522,30 @@
     font-size: 20px;
     margin-left: 5px;
   }
+}
+
+.buyTicketsModal-title {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.buyTicketsModal-title :nth-child(2) {
+  margin-left: auto;
+}
+
+.buyTicketsModal-buyInstant {
+  margin: auto;
+  width: 200px;
+  height: 50px;
+  padding: 0;
+}
+
+.buyTicketsModal-buyInstant button {
+  width: 100%;
+  height: 100%;
+}
+
+.buyTicketsModal-tips {
+  margin-top: 30px;
 }

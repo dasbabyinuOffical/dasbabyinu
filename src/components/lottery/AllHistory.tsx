@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button, Statistic, Divider, Row, Col, Space } from "antd";
+import { Card, Divider, Row, Col, Space } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 
 function AllHistory() {
