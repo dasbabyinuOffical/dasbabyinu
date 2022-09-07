@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import { Input, Modal, Divider, Button, Table, Tooltip, Space } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+import { getBalanceOf } from "../../util/wallet";
 
 const { Search } = Input;
 const columns = [
@@ -11,6 +12,8 @@ const columns = [
     key: "number",
   },
 ];
+
+const BUSD = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
 
 function BuyTicketsModal({
   isModalVisible,
@@ -27,13 +30,24 @@ function BuyTicketsModal({
 
   const [cost, setCost] = useState(0);
 
+  const [balance, setBalance] = useState("");
+
+  useEffect(() => {
+    let account = localStorage.getItem("account");
+    console.log("account is:", account, "BUSD is:", BUSD);
+    if (account) {
+      getBalanceOf(BUSD, account).then((res) => {
+        setBalance(res);
+      });
+    }
+  }, []);
+
   const onSearch = () => {
-    console.log("max ...");
+    let max = Math.round(Number(balance));
+    setTickets(max);
   };
 
-  const changeTickets = (e: any) => {
-    e.preventDefault();
-    let cnt = Number(e.target.value);
+  const generateTicketsNumber = (cnt: Number) => {
     setTickets(Number(cnt));
 
     let generateNumbers: any[] = [];
@@ -65,16 +79,26 @@ function BuyTicketsModal({
     // set discount
     if (cnt >= 2) {
       setDiscount(0.05);
-      setCost((cnt * 99.95) / 100);
+      setCost((Number(cnt) * 99.95) / 100);
     }
     if (cnt >= 50) {
       setDiscount(2.45);
-      setCost((cnt * 97.55) / 100);
+      setCost((Number(cnt) * 97.55) / 100);
     }
     if (cnt >= 100) {
       setDiscount(4.95);
-      setCost((cnt * 95.05) / 100);
+      setCost((Number(cnt) * 95.05) / 100);
     }
+  };
+
+  useMemo(() => {
+    generateTicketsNumber(tickets);
+  }, [tickets]);
+
+  const changeTickets = (e: any) => {
+    e.preventDefault();
+    let cnt = Number(e.target.value);
+    generateTicketsNumber(cnt);
   };
 
   return (
@@ -95,13 +119,14 @@ function BuyTicketsModal({
           enterButton="Max"
           size="large"
           defaultValue={tickets}
+          value={tickets}
           onChange={changeTickets}
           onSearch={onSearch}
         />
       </div>
       <div className="buyTicketsModal-title">
         <div></div>
-        <div>BUSD Balance: 1.555</div>
+        <div>BUSD Balance: {balance}</div>
       </div>
       <div className="buyTicketsModal-title">
         <div>Cost (BUSD)</div>
