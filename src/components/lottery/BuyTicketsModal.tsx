@@ -39,7 +39,6 @@ function BuyTicketsModal({
     let generateNumbers: any[] = [];
     // generate radom numbers
     for (let i = 0; i < cnt; i++) {
-      console.log("tickets is:", cnt);
       let a1 = Math.round(Math.random() * 10);
       let a2 = Math.round(Math.random() * 10);
       let a3 = Math.round(Math.random() * 10);
@@ -91,7 +90,7 @@ function BuyTicketsModal({
       </div>
       <div>
         <Search
-          placeholder="input search text"
+          placeholder="input how many tickets you want to buy"
           allowClear
           enterButton="Max"
           size="large"

@@ -13,7 +13,6 @@ function BuyTickets() {
 
   const handleCancel = () => {
     setModalVisible(false);
-    console.log("handle cancel");
   };
 
   return (
@@ -37,7 +36,6 @@ function BuyTickets() {
           <button
             className="buyTickets-btn"
             onClick={() => {
-              console.log("on lick buy tickets");
               setModalVisible(true);
             }}
           >
