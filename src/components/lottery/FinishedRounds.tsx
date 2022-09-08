@@ -12,8 +12,8 @@ function FinishedRounds() {
 
         <div>
           <Radio.Group defaultValue="a" buttonStyle="solid">
-            <Radio.Button value="a">All History</Radio.Button>
-            <Radio.Button value="y">Your History</Radio.Button>
+            <Radio.Button value="a">Winning Number</Radio.Button>
+            <Radio.Button value="y">Your Number</Radio.Button>
           </Radio.Group>
         </div>
       </div>

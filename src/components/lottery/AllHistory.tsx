@@ -1,9 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Divider, Row, Col, Space } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import { latestLotteryId, randomResult } from "../../util/lottery";
+
+const RandomGenerator = "0x8c6375Aab6e5B26a30bF241EBBf29AD6e6c503c2";
 
 function AllHistory() {
   const [detail, setDetail] = useState(false);
+
+  const [lotteryId, setLotteryId] = useState<string>("0");
+
+  const [randomResultNumber, setRandomResultNumber] = useState<string[]>([]);
+
+  useEffect(() => {
+    latestLotteryId(RandomGenerator).then((res) => {
+      setLotteryId(res);
+    });
+
+    randomResult(RandomGenerator).then((res) => {
+      let arr: string[] = [];
+      for (let i = res.length - 1; i > 0; i--) {
+        arr.push(res[i]);
+      }
+      setRandomResultNumber(arr);
+    });
+  }, []);
 
   const changeDetail = () => {
     setDetail(!detail);
@@ -13,23 +34,19 @@ function AllHistory() {
       title={
         <div>
           <div>
-            <strong>Round (657)</strong>
+            <strong>Round ({lotteryId})</strong>
           </div>
-          <div>Drawn Sep 5, 2022, 8:00 AM</div>
         </div>
       }
-      extra="< > >|"
+      extra=""
       style={{ marginTop: "20px" }}
     >
       <div className="buyTickets-winnning-number">
         <div>Winning Number</div>
         <div className="buyTickets-finish-number">
-          <div>4</div>
-          <div>5</div>
-          <div>9</div>
-          <div>9</div>
-          <div>4</div>
-          <div>1</div>
+          {randomResultNumber.map((num, i) => (
+            <div key={i}>{num}</div>
+          ))}
         </div>
       </div>
       <Divider />
