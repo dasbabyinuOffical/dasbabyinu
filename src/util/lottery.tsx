@@ -16,16 +16,21 @@ export async function latestLotteryId(daiAddress: string): Promise<string> {
   return ret;
 }
 
-export async function randomResult(daiAddress: string): Promise<string> {
+export async function randomResult(daiAddress: string): Promise<string[]> {
   if (!window.ethereum) {
-    return "0000000";
+    return [];
   }
 
   const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
   const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
   const result = await daiContract.finalNumber();
-  const ret = ethers.utils.formatUnits(result, 0);
-  return ret;
+
+  const final = result.toString();
+  let results: string[] = [];
+  for (let i = 1; i < final.length; i++) {
+    results.push(final[i]);
+  }
+  return results;
 }
 
 export async function totalReward(daiAddress: string): Promise<string> {

@@ -123,14 +123,12 @@ function Prize() {
           format="HH:mm:ss:SSS"
           onFinish={onFinish}
           valueStyle={{
-            fontSize: "40px",
+            fontSize: "30px",
             color: "rgb(253, 171, 50)",
           }}
         />
         <div>
-          <span style={{ color: "white", fontSize: "20px" }}>
-            until the draw
-          </span>
+          <span style={{ color: "white", fontSize: "20px" }}>to end</span>
         </div>
       </h2>
       <Card
@@ -144,7 +142,7 @@ function Prize() {
           prefix="Prize Pot $"
           valueStyle={{ color: "rgb(118, 69, 217)" }}
         />
-        <p>
+        <div>
           <strong>Your tickets:</strong> You have
           <strong>{myTickets.toString()}</strong> ticket this round
           {step === "0" && (
@@ -159,8 +157,8 @@ function Prize() {
               BuyTickets
             </Button>
           )}
-        </p>
-        <p>
+        </div>
+        <div>
           <strong>Tickets:</strong>
           <Space direction="horizontal">
             {myTicketsNumber.map((t, i) => (
@@ -169,7 +167,7 @@ function Prize() {
               </label>
             ))}
           </Space>
-        </p>
+        </div>
         <Divider />
         <div
           className="buyTickets-prize-content"

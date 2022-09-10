@@ -12,10 +12,10 @@ function CheckWinner() {
       </div>
       <div>
         <Space direction="vertical">
-          <div className="buyTickets-winner-ask">Are you a Winner?</div>
+          <div className="buyTickets-winner-ask">Claim My Rewards</div>
           <div>
             <Button type="primary" shape="round" size="large">
-              Check Now
+              Claim Now
             </Button>
           </div>
         </Space>

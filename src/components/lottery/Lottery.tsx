@@ -11,8 +11,8 @@ function Lottery() {
     <div>
       <BuyTickets />
       <Prize />
-      <CheckWinner />
       <FinishedRounds />
+      <CheckWinner />
       <HowToPlay />
     </div>
   );
