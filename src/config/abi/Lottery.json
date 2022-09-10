@@ -7,10 +7,11 @@
         "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "_randomGeneratorAddress",
-        "type": "address"
-      }
+        "internalType": "uint256",
+        "name": "_cakeTokenDecimal",
+        "type": "uint256"
+      },
+      { "internalType": "address", "name": "_nftToken", "type": "address" }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -171,19 +172,6 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "randomGenerator",
-        "type": "address"
-      }
-    ],
-    "name": "NewRandomGenerator",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
         "name": "previousOwner",
         "type": "address"
       },
@@ -255,28 +243,7 @@
   },
   {
     "inputs": [],
-    "name": "MAX_LENGTH_LOTTERY",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "MAX_TREASURY_FEE",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "MIN_DISCOUNT_DIVISOR",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "MIN_LENGTH_LOTTERY",
+    "name": "TwentyDiscount",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -305,31 +272,24 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_discountDivisor",
-        "type": "uint256"
-      },
-      { "internalType": "uint256", "name": "_priceTicket", "type": "uint256" },
-      { "internalType": "uint256", "name": "_numberTickets", "type": "uint256" }
-    ],
-    "name": "calculateTotalPriceForBulkTickets",
+    "inputs": [],
+    "name": "cakeTokenDecimal",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "pure",
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_randomGeneratorAddress",
-        "type": "address"
-      }
+        "internalType": "uint256",
+        "name": "_numberTickets",
+        "type": "uint256"
+      },
+      { "internalType": "address", "name": "_sender", "type": "address" }
     ],
-    "name": "changeRandomGenerator",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "calculateTotalPriceForBulkTickets",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -364,13 +324,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "currentTicketId",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       { "internalType": "uint256", "name": "_lotteryId", "type": "uint256" },
       { "internalType": "bool", "name": "_autoInjection", "type": "bool" }
@@ -378,6 +331,34 @@
     "name": "drawFinalNumberAndMakeLotteryClaimable",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "endTime",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "finalNumber",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "fiveNftDiscount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "hundredNftDiscount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -392,8 +373,43 @@
   },
   {
     "inputs": [],
-    "name": "injectorAddress",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "matchOneShare",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "matchOneUserCnt",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "matchThreeShare",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "matchThreeUserCnt",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "matchTwoShare",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "matchTwoUserCnt",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -406,22 +422,17 @@
   },
   {
     "inputs": [],
-    "name": "maxPriceTicketInCake",
+    "name": "nftDiscount",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "minPriceTicketInCake",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "operatorAddress",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "nftToken",
+    "outputs": [
+      { "internalType": "contract IERC721", "name": "", "type": "address" }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -434,21 +445,8 @@
   },
   {
     "inputs": [],
-    "name": "pendingInjectionNextLottery",
+    "name": "priceTicket",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "randomGenerator",
-    "outputs": [
-      {
-        "internalType": "contract IRandomNumberGenerator",
-        "name": "",
-        "type": "address"
-      }
-    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -484,41 +482,9 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_minPriceTicketInCake",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_maxPriceTicketInCake",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_nftDiscount", "type": "uint256" }
     ],
-    "name": "setMinAndMaxTicketPriceInCake",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_operatorAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_treasuryAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_injectorAddress",
-        "type": "address"
-      }
-    ],
-    "name": "setOperatorAndTreasuryAndInjectorAddresses",
+    "name": "setNftDiscount",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -549,6 +515,29 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "startTime",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "status",
+    "outputs": [
+      { "internalType": "enum Lottery.Status", "name": "", "type": "uint8" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalReward",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "newOwner", "type": "address" }
     ],
@@ -566,118 +555,46 @@
   },
   {
     "inputs": [],
-    "name": "viewCurrentLotteryId",
+    "name": "treasuryFee",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "userRewards",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_lotteryId", "type": "uint256" }
-    ],
-    "name": "viewLottery",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "enum PancakeSwapLottery.Status",
-            "name": "status",
-            "type": "uint8"
-          },
-          { "internalType": "uint256", "name": "startTime", "type": "uint256" },
-          { "internalType": "uint256", "name": "endTime", "type": "uint256" },
-          {
-            "internalType": "uint256",
-            "name": "priceTicketInCake",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "discountDivisor",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256[6]",
-            "name": "rewardsBreakdown",
-            "type": "uint256[6]"
-          },
-          {
-            "internalType": "uint256",
-            "name": "treasuryFee",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256[6]",
-            "name": "cakePerBracket",
-            "type": "uint256[6]"
-          },
-          {
-            "internalType": "uint256[6]",
-            "name": "countWinnersPerBracket",
-            "type": "uint256[6]"
-          },
-          {
-            "internalType": "uint256",
-            "name": "firstTicketId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "firstTicketIdNextLottery",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amountCollectedInCake",
-            "type": "uint256"
-          },
-          { "internalType": "uint32", "name": "finalNumber", "type": "uint32" }
-        ],
-        "internalType": "struct PancakeSwapLottery.Lottery",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256[]", "name": "_ticketIds", "type": "uint256[]" }
-    ],
-    "name": "viewNumbersAndStatusesForTicketIds",
-    "outputs": [
-      { "internalType": "uint32[]", "name": "", "type": "uint32[]" },
-      { "internalType": "bool[]", "name": "", "type": "bool[]" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "_lotteryId", "type": "uint256" },
-      { "internalType": "uint256", "name": "_ticketId", "type": "uint256" },
-      { "internalType": "uint32", "name": "_bracket", "type": "uint32" }
-    ],
-    "name": "viewRewardsForTicketId",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_user", "type": "address" },
-      { "internalType": "uint256", "name": "_lotteryId", "type": "uint256" },
-      { "internalType": "uint256", "name": "_cursor", "type": "uint256" },
-      { "internalType": "uint256", "name": "_size", "type": "uint256" }
-    ],
-    "name": "viewUserInfoForLotteryId",
-    "outputs": [
-      { "internalType": "uint256[]", "name": "", "type": "uint256[]" },
-      { "internalType": "uint32[]", "name": "", "type": "uint32[]" },
-      { "internalType": "bool[]", "name": "", "type": "bool[]" },
+      { "internalType": "address", "name": "", "type": "address" },
       { "internalType": "uint256", "name": "", "type": "uint256" }
     ],
+    "name": "userTickets",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "userTicketsCnt",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "users",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewCurrentLotteryId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   }

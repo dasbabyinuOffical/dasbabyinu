@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Statistic } from "antd";
 import BuyTicketsModal from "./BuyTicketsModal";
+import { totalReward, status } from "../../util/lottery";
 
 let starSmall = require("../../images/star-small.png");
 let startBig = require("../../images/star-big.png");
@@ -8,12 +9,34 @@ let threeStar = require("../../images/three-stars.png");
 let ticketLeft = require("../../images/ticket-left.png");
 let ticketRight = require("../../images/ticket-right.png");
 
+const daiAddress = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
+
 function BuyTickets() {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const handleCancel = () => {
     setModalVisible(false);
   };
+
+  const [totalRewards, setTotalRewards] = useState<string>("0");
+  const [step, setStep] = useState<string>("-1");
+
+  useEffect(() => {
+    const rewardInterval = setInterval(() => {
+      // get reward
+      totalReward(daiAddress).then((res) => {
+        setTotalRewards(res);
+      });
+
+      // get status
+      status(daiAddress).then((res) => {
+        setStep(res);
+      });
+    }, 10000);
+    return () => {
+      clearInterval(rewardInterval);
+    };
+  }, []);
 
   return (
     <div className="buyTickets">
@@ -26,21 +49,26 @@ function BuyTickets() {
         <div className="buyTickets-title">The DasBabySwap Lottery </div>
         <div className="buyTickets-money">
           <Statistic
-            value={116163}
+            value={totalRewards}
             prefix="$"
             valueStyle={{ color: "rgb(253, 171, 50)" }}
           />
         </div>
         <div className="buyTickets-prizes">in prizes! </div>
         <div className="buyTickets-button">
-          <button
-            className="buyTickets-btn"
-            onClick={() => {
-              setModalVisible(true);
-            }}
-          >
-            BuyTickets
-          </button>
+          {step === "0" ? (
+            <button
+              className="buyTickets-btn"
+              onClick={() => {
+                setModalVisible(true);
+              }}
+              disabled={step !== "0" ? true : false}
+            >
+              BuyTickets
+            </button>
+          ) : (
+            <label className="buyTIckets-label">Not Start Yet!</label>
+          )}
         </div>
       </div>
       <BuyTicketsModal
