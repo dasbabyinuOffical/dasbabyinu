@@ -47,6 +47,18 @@ export async function status(daiAddress: string): Promise<string> {
   const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
   const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
   const result = await daiContract.status();
-  const ret = ethers.utils.formatUnits(result, 18);
+  const ret = ethers.utils.formatUnits(result, 0);
+  return ret;
+}
+
+export async function startTime(daiAddress: string): Promise<string> {
+  if (!window.ethereum) {
+    return "0";
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
+  const result = await daiContract.startTime();
+  const ret = ethers.utils.formatUnits(result, 0);
   return ret;
 }
