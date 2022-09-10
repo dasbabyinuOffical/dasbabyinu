@@ -7,13 +7,15 @@ import {
   totalReward,
   latestLotteryId,
   startTime,
+  endTime,
   status,
   userTicketsCnt,
+  userTicketsNumber,
 } from "../../util/lottery";
 
 const { Countdown } = Statistic;
+const LotteryContract = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 
-const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30; // Moment is also OK
 const onFinish = () => {
   console.log("finished!");
 };
@@ -66,8 +68,10 @@ function Prize() {
   const [totalRewards, setTotalRewards] = useState<string>("0");
   const [currentLotteryId, setCurrentLotteryId] = useState<string>("0");
   const [beginTime, setBeginTime] = useState<string>("0");
+  const [deadTime, setDeadTime] = useState<number>(0);
   const [step, setStep] = useState<string>("-1");
   const [myTickets, setMyTickets] = useState<Number>(0);
+  const [myTicketsNumber, setMyTicketsNumber] = useState<string[]>([]);
   useEffect(() => {
     const rewardInterval = setInterval(() => {
       // get reward
@@ -84,6 +88,11 @@ function Prize() {
         console.log("begin time:", res, ts);
         setBeginTime(ts);
       });
+      // set end time
+      endTime(daiAddress).then((res) => {
+        console.log("end time:", res);
+        setDeadTime(Number(res) * 1000);
+      });
       // get status
       status(daiAddress).then((res) => {
         setStep(res);
@@ -92,6 +101,12 @@ function Prize() {
       const account = localStorage.getItem("account");
       userTicketsCnt(daiAddress, account!).then((res) => {
         setMyTickets(res);
+        userTicketsNumber(LotteryContract, account!, Number(res)).then(
+          (res) => {
+            setMyTicketsNumber(res);
+            console.log("tickets number: " + res);
+          }
+        );
       });
     }, 10000);
     return () => {
@@ -104,7 +119,7 @@ function Prize() {
       <h1>Get your tickets now!</h1>
       <h2>
         <Countdown
-          value={deadline}
+          value={deadTime}
           format="HH:mm:ss:SSS"
           onFinish={onFinish}
           valueStyle={{
@@ -144,6 +159,16 @@ function Prize() {
               BuyTickets
             </Button>
           )}
+        </p>
+        <p>
+          <strong>Tickets:</strong>
+          <Space direction="horizontal">
+            {myTicketsNumber.map((t, i) => (
+              <label key={i} className="specialColor">
+                {t}
+              </label>
+            ))}
+          </Space>
         </p>
         <Divider />
         <div

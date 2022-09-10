@@ -64,6 +64,17 @@ export async function startTime(daiAddress: string): Promise<string> {
   return ret;
 }
 
+export async function endTime(daiAddress: string): Promise<number> {
+  if (!window.ethereum) {
+    return 0;
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
+  const result = await daiContract.endTime();
+  return result;
+}
+
 export async function buyTickets(
   daiAddress: string,
   numbers: string[]
@@ -120,6 +131,26 @@ export async function userTicketsCnt(
   const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
   const result = await daiContract.userTicketsCnt(address);
   return result;
+}
+
+export async function userTicketsNumber(
+  daiAddress: string,
+  address: string,
+  num: number
+): Promise<string[]> {
+  if (!window.ethereum) {
+    return [];
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
+  let results: string[] = [];
+  for (let i = 0; i < num; i++) {
+    const result = await daiContract.userTickets(address, i);
+    let ret = result.toString();
+    results.push(ret.slice(1, ret.length));
+  }
+  return results;
 }
 
 export async function ApproveBUSD(
