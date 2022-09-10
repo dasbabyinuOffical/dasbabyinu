@@ -1,8 +1,22 @@
 import React, { useEffect, useState, useMemo } from "react";
 
-import { Input, Modal, Divider, Button, Table, Tooltip, Space } from "antd";
+import {
+  Input,
+  Modal,
+  Divider,
+  Button,
+  Table,
+  Tooltip,
+  Space,
+  notification,
+} from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { getBalanceOf } from "../../util/wallet";
+import {
+  calculateTotalPriceForBulkTickets,
+  ApproveBUSD,
+  buyTickets,
+} from "../../util/lottery";
 
 const { Search } = Input;
 const columns = [
@@ -13,14 +27,16 @@ const columns = [
   },
 ];
 
+const daiAddress = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 const BUSD = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+const LotteryContract = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 
 function BuyTicketsModal({
   isModalVisible,
   handleCancel,
 }: {
   isModalVisible: boolean;
-  handleCancel: (e: React.MouseEvent<HTMLElement>) => void;
+  handleCancel: (e: React.MouseEvent<HTMLElement> | null) => void;
 }) {
   const [numbers, setNumbers] = useState<any[]>([]);
 
@@ -56,22 +72,11 @@ function BuyTicketsModal({
       let a1 = Math.round(Math.random() * 10);
       let a2 = Math.round(Math.random() * 10);
       let a3 = Math.round(Math.random() * 10);
-      let a4 = Math.round(Math.random() * 10);
-      let a5 = Math.round(Math.random() * 10);
-      let a6 = Math.round(Math.random() * 10);
-      let a7 = Math.round(Math.random() * 10);
-      let a =
-        a1 * 1000000 +
-        a2 * 100000 +
-        a3 * 10000 +
-        a4 * 1000 +
-        a5 * 100 +
-        a6 * 10 +
-        a7;
-
+      let a = a1 * 100 + a2 * 10 + a3;
       generateNumbers.push({
         key: i,
         number: <Input defaultValue={a} maxLength={6} />,
+        data: 1000 + a,
       });
     }
     setNumbers(generateNumbers);
@@ -99,6 +104,47 @@ function BuyTicketsModal({
     e.preventDefault();
     let cnt = Number(e.target.value);
     generateTicketsNumber(cnt);
+  };
+
+  const openNotification = (result: string, tx: string) => {
+    let desc = "trscation id is:" + tx;
+    if (result == "fail") {
+      desc = "Check your wallet.";
+    }
+    notification.open({
+      message: "Buy Tickets Result:" + result,
+      description: desc,
+    });
+  };
+
+  const buyInstant = () => {
+    let tickets: string[] = [];
+    for (let i = 0; i < numbers.length; i++) {
+      tickets.push(numbers[i].data);
+    }
+    handleCancel(null);
+    console.log("tickets:", tickets);
+
+    const account = localStorage.getItem("account");
+    // get cost.
+    calculateTotalPriceForBulkTickets(
+      daiAddress,
+      numbers.length,
+      account!
+    ).then((res) => {
+      console.log("cost is:", res);
+      // approve busd.
+      ApproveBUSD(BUSD, account!, LotteryContract, res).then((res) => {
+        console.log("approve:", res);
+        // buy tickets.
+        buyTickets(LotteryContract, tickets).then((res) => {
+          openNotification("Success", res);
+          console.log("buy tickets:", tickets, res);
+        });
+      });
+    });
+
+    // buy tickets.
   };
 
   return (
@@ -164,7 +210,7 @@ function BuyTicketsModal({
         <div>{cost} BUSD</div>
       </div>
       <div className="buyTicketsModal-buyInstant">
-        <Button type="primary" shape="round">
+        <Button type="primary" shape="round" onClick={buyInstant}>
           Buy Instant
         </Button>
       </div>

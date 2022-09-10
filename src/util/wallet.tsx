@@ -44,6 +44,23 @@ export async function getBalanceOf(
   return ret;
 }
 
+export async function getAllowance(
+  daiAddress: string,
+  owner: string,
+  spender: string
+): Promise<string> {
+  if (!window.ethereum) {
+    return "0.0";
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, abi, providerWeb3);
+  const allow = await daiContract.allowance(owner, spender);
+  // get allow
+  const ret = ethers.utils.formatUnits(allow, 0);
+  return ret;
+}
+
 export async function getDecimalOf(daiAddress: string): Promise<number> {
   if (!window.ethereum) {
     return 0;

@@ -3,7 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Statistic, Card, Divider, Button, Row, Col, Space } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import BuyTicketsModal from "./BuyTicketsModal";
-import { totalReward, latestLotteryId, startTime } from "../../util/lottery";
+import {
+  totalReward,
+  latestLotteryId,
+  startTime,
+  status,
+} from "../../util/lottery";
 
 const { Countdown } = Statistic;
 
@@ -59,6 +64,7 @@ function Prize() {
   const [totalRewards, setTotalRewards] = useState<string>("0");
   const [currentLotteryId, setCurrentLotteryId] = useState<string>("0");
   const [beginTime, setBeginTime] = useState<string>("0");
+  const [step, setStep] = useState<string>("-1");
   useEffect(() => {
     const rewardInterval = setInterval(() => {
       // get reward
@@ -73,6 +79,10 @@ function Prize() {
       startTime(daiAddress).then((res) => {
         const ts = formatDate(res);
         setBeginTime(ts);
+      });
+      // get status
+      status(daiAddress).then((res) => {
+        setStep(res);
       });
     }, 10000);
     return () => {
@@ -113,16 +123,18 @@ function Prize() {
         <p>
           <strong>Your tickets:</strong> You have{" "}
           <strong>{totalRewards}</strong> ticket this round
-          <Button
-            shape="round"
-            type="primary"
-            style={{ backgroundColor: "rgb(31, 199, 212)" }}
-            onClick={() => {
-              setModalVisible(true);
-            }}
-          >
-            BuyTickets
-          </Button>
+          {step === "0" && (
+            <Button
+              shape="round"
+              type="primary"
+              style={{ backgroundColor: "rgb(31, 199, 212)" }}
+              onClick={() => {
+                setModalVisible(true);
+              }}
+            >
+              BuyTickets
+            </Button>
+          )}
         </p>
         <Divider />
         <div

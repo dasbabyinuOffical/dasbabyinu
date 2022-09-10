@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import LotteryAbi from "../config/abi/Lottery.json";
+import BUSDAbi from "../config/abi/BUSD.json";
 
 declare var window: any;
 
@@ -61,4 +62,71 @@ export async function startTime(daiAddress: string): Promise<string> {
   const result = await daiContract.startTime();
   const ret = ethers.utils.formatUnits(result, 0);
   return ret;
+}
+
+export async function buyTickets(
+  daiAddress: string,
+  numbers: string[]
+): Promise<string> {
+  if (!window.ethereum) {
+    return "0";
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
+  const signer = providerWeb3.getSigner();
+  const daiContractWithSigner = daiContract.connect(signer);
+  let data: BigInt[] = [];
+  for (let i = 0; i < numbers.length; i++) {
+    data.push(BigInt(numbers[i]));
+  }
+  const gas = await daiContractWithSigner.estimateGas.buyTickets(0, data);
+  const tx = await daiContractWithSigner.buyTickets(0, data, {
+    gasLimit: gas,
+  });
+
+  await tx.wait();
+  return tx.hash;
+}
+
+export async function calculateTotalPriceForBulkTickets(
+  daiAddress: string,
+  numberTickets: Number,
+  address: string
+): Promise<string> {
+  if (!window.ethereum) {
+    return "0";
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
+  const result = await daiContract.calculateTotalPriceForBulkTickets(
+    numberTickets,
+    address
+  );
+  const ret = ethers.utils.formatUnits(result, 0);
+  return ret;
+}
+
+export async function ApproveBUSD(
+  daiAddress: string,
+  owner: string,
+  spender: string,
+  cnt: string
+): Promise<string> {
+  if (!window.ethereum) {
+    return "0";
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, BUSDAbi, providerWeb3);
+  const allow = await daiContract.allowance(owner, spender);
+
+  // only when allow less than cnt, need to approve again
+  if (allow < BigInt(cnt)) {
+    const signer = providerWeb3.getSigner();
+    const daiContractWithSigner = daiContract.connect(signer);
+    await daiContractWithSigner.approve(spender, BigInt(cnt));
+  }
+  return "1";
 }
