@@ -108,6 +108,20 @@ export async function calculateTotalPriceForBulkTickets(
   return ret;
 }
 
+export async function userTicketsCnt(
+  daiAddress: string,
+  address: string
+): Promise<Number> {
+  if (!window.ethereum) {
+    return 0;
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
+  const result = await daiContract.userTicketsCnt(address);
+  return result;
+}
+
 export async function ApproveBUSD(
   daiAddress: string,
   owner: string,

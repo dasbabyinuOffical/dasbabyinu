@@ -8,6 +8,7 @@ import {
   latestLotteryId,
   startTime,
   status,
+  userTicketsCnt,
 } from "../../util/lottery";
 
 const { Countdown } = Statistic;
@@ -20,7 +21,8 @@ const onFinish = () => {
 const daiAddress = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 
 function formatDate(value: string) {
-  var date = new Date(value);
+  var date = new Date();
+  date.setTime(Number(value) * 1000);
   var y = date.getFullYear(),
     m = (date.getMonth() + 1).toString(),
     d = date.getDate().toString(),
@@ -65,6 +67,7 @@ function Prize() {
   const [currentLotteryId, setCurrentLotteryId] = useState<string>("0");
   const [beginTime, setBeginTime] = useState<string>("0");
   const [step, setStep] = useState<string>("-1");
+  const [myTickets, setMyTickets] = useState<Number>(0);
   useEffect(() => {
     const rewardInterval = setInterval(() => {
       // get reward
@@ -78,11 +81,17 @@ function Prize() {
       // set begin time
       startTime(daiAddress).then((res) => {
         const ts = formatDate(res);
+        console.log("begin time:", res, ts);
         setBeginTime(ts);
       });
       // get status
       status(daiAddress).then((res) => {
         setStep(res);
+      });
+      // get tickets
+      const account = localStorage.getItem("account");
+      userTicketsCnt(daiAddress, account!).then((res) => {
+        setMyTickets(res);
       });
     }, 10000);
     return () => {
@@ -111,7 +120,7 @@ function Prize() {
       </h2>
       <Card
         title="Current Draw"
-        extra={`#${currentLotteryId} | Draw: ${beginTime}`}
+        extra={`#${currentLotteryId} | StartTime: ${beginTime}`}
         style={{ marginTop: "20px" }}
         className="buyTickets-card"
       >
@@ -121,8 +130,8 @@ function Prize() {
           valueStyle={{ color: "rgb(118, 69, 217)" }}
         />
         <p>
-          <strong>Your tickets:</strong> You have{" "}
-          <strong>{totalRewards}</strong> ticket this round
+          <strong>Your tickets:</strong> You have
+          <strong>{myTickets.toString()}</strong> ticket this round
           {step === "0" && (
             <Button
               shape="round"
