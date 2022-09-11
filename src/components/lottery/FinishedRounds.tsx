@@ -18,6 +18,10 @@ function FinishedRounds() {
 
       // get random number
       randomResult(LotteryContract).then((res) => {
+        console.log("finish number is:", res);
+        if (res.length === 0) {
+          setRandomResultNumber(["", "", ""]);
+        }
         if (res.length > 0) {
           setRandomResultNumber(res);
         }
