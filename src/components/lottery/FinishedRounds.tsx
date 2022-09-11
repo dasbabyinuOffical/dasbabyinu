@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { latestLotteryId, randomResult } from "../../util/lottery";
-const daiAddress = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
+const LotteryContract = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 
 function FinishedRounds() {
   const [currentLotteryId, setCurrentLotteryId] = useState<string>("0");
@@ -12,12 +12,12 @@ function FinishedRounds() {
   useEffect(() => {
     const rewardInterval = setInterval(() => {
       // get lottery id
-      latestLotteryId(daiAddress).then((res) => {
+      latestLotteryId(LotteryContract).then((res) => {
         setCurrentLotteryId(res);
       });
 
       // get random number
-      randomResult(daiAddress).then((res) => {
+      randomResult(LotteryContract).then((res) => {
         if (res.length > 0) {
           setRandomResultNumber(res);
         }

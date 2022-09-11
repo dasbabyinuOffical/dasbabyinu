@@ -195,3 +195,23 @@ export async function ApproveBUSD(
   }
   return "1";
 }
+
+export async function claimTickets(daiAddress: string): Promise<string> {
+  if (!window.ethereum) {
+    return "0";
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, BUSDAbi, providerWeb3);
+
+  const signer = providerWeb3.getSigner();
+  const daiContractWithSigner = daiContract.connect(signer);
+
+  const gas = await daiContractWithSigner.estimateGas.claimTickets(0, [], []);
+  const tx = await daiContractWithSigner.claimTickets(0, [], [], {
+    gasLimit: gas,
+  });
+
+  await tx.wait();
+  return tx.hash;
+}

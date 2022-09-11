@@ -27,7 +27,6 @@ const columns = [
   },
 ];
 
-const daiAddress = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 const BUSD = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
 const LotteryContract = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 
@@ -142,7 +141,7 @@ function BuyTicketsModal({
     const account = localStorage.getItem("account");
     // get cost.
     calculateTotalPriceForBulkTickets(
-      daiAddress,
+      LotteryContract,
       numbers.length,
       account!
     ).then((res) => {

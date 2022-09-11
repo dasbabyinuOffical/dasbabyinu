@@ -1,10 +1,10 @@
-import { Button, Space } from "antd";
+import { Button, Space, notification } from "antd";
 import React, { useEffect, useState } from "react";
-import { userReward, status } from "../../util/lottery";
+import { userReward, status, claimTickets } from "../../util/lottery";
 
 let ticketRight = require("../../images/ticket-left.png");
 let ticketLeft = require("../../images/ticket-right.png");
-const daiAddress = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
+const LotteryContract = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
 
 function CheckWinner() {
   const [userRewards, setUserRewards] = useState<string>("0");
@@ -13,12 +13,12 @@ function CheckWinner() {
     const rewardInterval = setInterval(() => {
       // get reward
       const account = localStorage.getItem("account");
-      userReward(daiAddress, account!).then((res) => {
+      userReward(LotteryContract, account!).then((res) => {
         setUserRewards(res);
       });
 
       // get status
-      status(daiAddress).then((res) => {
+      status(LotteryContract).then((res) => {
         setStep(res);
       });
     }, 10000);
@@ -26,6 +26,23 @@ function CheckWinner() {
       clearInterval(rewardInterval);
     };
   }, []);
+
+  const openNotification = (result: string, tx: string) => {
+    let desc = "trscation id is:" + tx;
+    if (result === "fail") {
+      desc = "Check your wallet.";
+    }
+    notification.open({
+      message: "Buy Tickets Result:" + result,
+      description: desc,
+    });
+  };
+
+  const onClaim = () => {
+    claimTickets(LotteryContract).then((res) => {
+      openNotification("Success", res);
+    });
+  };
   return (
     <div className="buyTickets-winner">
       <div>
@@ -40,6 +57,7 @@ function CheckWinner() {
               shape="round"
               size="large"
               disabled={step !== "2"}
+              onClick={onClaim}
             >
               Claim Now
             </Button>

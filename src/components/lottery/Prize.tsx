@@ -20,8 +20,6 @@ const onFinish = () => {
   console.log("finished!");
 };
 
-const daiAddress = "0x5eC5a89BDdF7AF48392B2f8a5419080470Ee238b";
-
 function formatDate(value: string) {
   var date = new Date();
   date.setTime(Number(value) * 1000);
@@ -74,31 +72,31 @@ function Prize() {
   useEffect(() => {
     const rewardInterval = setInterval(() => {
       // get reward
-      totalReward(daiAddress).then((res) => {
+      totalReward(LotteryContract).then((res) => {
         setTotalRewards(res);
       });
       // get lottery id
-      latestLotteryId(daiAddress).then((res) => {
+      latestLotteryId(LotteryContract).then((res) => {
         setCurrentLotteryId(res);
       });
       // set begin time
-      startTime(daiAddress).then((res) => {
+      startTime(LotteryContract).then((res) => {
         const ts = formatDate(res);
         console.log("begin time:", res, ts);
         setBeginTime(ts);
       });
       // set end time
-      endTime(daiAddress).then((res) => {
+      endTime(LotteryContract).then((res) => {
         console.log("end time:", res);
         setDeadTime(Number(res) * 1000);
       });
       // get status
-      status(daiAddress).then((res) => {
+      status(LotteryContract).then((res) => {
         setStep(res);
       });
       // get tickets
       const account = localStorage.getItem("account");
-      userTicketsCnt(daiAddress, account!).then((res) => {
+      userTicketsCnt(LotteryContract, account!).then((res) => {
         setMyTickets(res);
         userTicketsNumber(LotteryContract, account!, Number(res)).then(
           (res) => {
