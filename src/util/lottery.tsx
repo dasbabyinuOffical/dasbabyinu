@@ -202,11 +202,12 @@ export async function claimTickets(daiAddress: string): Promise<string> {
   }
 
   const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
-  const daiContract = new ethers.Contract(daiAddress, BUSDAbi, providerWeb3);
+  const daiContract = new ethers.Contract(daiAddress, LotteryAbi, providerWeb3);
 
   const signer = providerWeb3.getSigner();
   const daiContractWithSigner = daiContract.connect(signer);
 
+  console.log("daiContractWithSigner: ", daiContractWithSigner);
   const gas = await daiContractWithSigner.estimateGas.claimTickets(0, [], []);
   const tx = await daiContractWithSigner.claimTickets(0, [], [], {
     gasLimit: gas,
