@@ -32,9 +32,8 @@ function formatDate(value: string) {
     i = date.getMinutes().toString(),
     s = date.getSeconds().toString();
 
-  var t = y + "-";
   if (Number(m) < 10) {
-    t = "0" + m;
+    m = "0" + m;
   }
   if (Number(d) < 10) {
     d = "0" + d;
@@ -48,8 +47,8 @@ function formatDate(value: string) {
   if (Number(s) < 10) {
     s = "0" + s;
   }
-  var t = y + "-" + m + "-" + d + " " + h + ":" + i + ":" + s;
-  return t;
+  var r = y + "-" + m + "-" + d + " " + h + ":" + i + ":" + s;
+  return r;
 }
 
 function Prize() {

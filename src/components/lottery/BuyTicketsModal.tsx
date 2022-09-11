@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Input,
@@ -40,11 +40,11 @@ function BuyTicketsModal({
 }) {
   const [numbers, setNumbers] = useState<any[]>([]);
 
-  const [tickets, setTickets] = useState(0);
+  const [discount, setDiscount] = useState<Number>(0);
 
-  const [discount, setDiscount] = useState(0);
+  const [tickets, setTickets] = useState<Number>(0);
 
-  const [cost, setCost] = useState(0);
+  const [cost, setCost] = useState<Number>(0);
 
   const [balance, setBalance] = useState("");
 
@@ -60,45 +60,59 @@ function BuyTicketsModal({
 
   const onSearch = () => {
     let max = Math.round(Number(balance));
-    setTickets(max);
+    generateTicketsNumber(max);
   };
 
   const generateTicketsNumber = (cnt: Number) => {
-    setTickets(Number(cnt));
-
+    setTickets(cnt);
+    console.log("in generateTicketsNumber,cnt is:", cnt);
     let generateNumbers: any[] = [];
     // generate radom numbers
     for (let i = 0; i < cnt; i++) {
-      let a1 = Math.round(Math.random() * 10);
-      let a2 = Math.round(Math.random() * 10);
-      let a3 = Math.round(Math.random() * 10);
-      let a = a1 * 100 + a2 * 10 + a3;
+      const a1 = Math.floor(Math.random() * 10).toString();
+      const a2 = Math.floor(Math.random() * 10).toString();
+      const a3 = Math.floor(Math.random() * 10).toString();
+      const a = "1" + a1 + a2 + a3;
       generateNumbers.push({
         key: i,
-        number: <Input defaultValue={a} maxLength={6} />,
-        data: 1000 + a,
+        number: (
+          <Input
+            defaultValue={a.toString().slice(1, 4)}
+            maxLength={3}
+            key={i}
+            value={a.toString().slice(1, 4)}
+            disabled
+          />
+        ),
+        data: a,
       });
     }
     setNumbers(generateNumbers);
+    console.log("generateNumbers:", generateNumbers);
+
+    if (cnt >= 100) {
+      setDiscount(30);
+      setCost((Number(cnt) * 70) / 100);
+      return;
+    }
+
+    if (cnt >= 20) {
+      setDiscount(20);
+      setCost((Number(cnt) * 80) / 100);
+      return;
+    }
 
     // set discount
-    if (cnt >= 2) {
-      setDiscount(0.05);
-      setCost((Number(cnt) * 99.95) / 100);
+    if (cnt >= 5) {
+      setDiscount(10);
+      setCost((Number(cnt) * 90) / 100);
+      return;
     }
-    if (cnt >= 50) {
-      setDiscount(2.45);
-      setCost((Number(cnt) * 97.55) / 100);
-    }
-    if (cnt >= 100) {
-      setDiscount(4.95);
-      setCost((Number(cnt) * 95.05) / 100);
-    }
-  };
 
-  useMemo(() => {
-    generateTicketsNumber(tickets);
-  }, [tickets]);
+    setDiscount(0);
+    setCost(cnt);
+    return;
+  };
 
   const changeTickets = (e: any) => {
     e.preventDefault();
@@ -108,7 +122,7 @@ function BuyTicketsModal({
 
   const openNotification = (result: string, tx: string) => {
     let desc = "trscation id is:" + tx;
-    if (result == "fail") {
+    if (result === "fail") {
       desc = "Check your wallet.";
     }
     notification.open({
@@ -120,7 +134,7 @@ function BuyTicketsModal({
   const buyInstant = () => {
     let tickets: string[] = [];
     for (let i = 0; i < numbers.length; i++) {
-      tickets.push(numbers[i].data);
+      tickets.push(numbers[i].data.toString());
     }
     handleCancel(null);
     console.log("tickets:", tickets);
@@ -143,8 +157,6 @@ function BuyTicketsModal({
         });
       });
     });
-
-    // buy tickets.
   };
 
   return (
@@ -164,8 +176,6 @@ function BuyTicketsModal({
           allowClear
           enterButton="Max"
           size="large"
-          defaultValue={tickets}
-          value={tickets}
           onChange={changeTickets}
           onSearch={onSearch}
         />
@@ -176,11 +186,11 @@ function BuyTicketsModal({
       </div>
       <div className="buyTicketsModal-title">
         <div>Cost (BUSD)</div>
-        <div>{tickets} BUSD</div>
+        <div>{tickets.toString()} BUSD</div>
       </div>
       <div className="buyTicketsModal-title">
         <div>
-          {discount}% Bulk discount
+          {discount.toString()}% Bulk discount
           <Tooltip
             placement="topLeft"
             title={
@@ -191,9 +201,9 @@ function BuyTicketsModal({
                     discount. The discount increases in a linear way, up to the
                     maximum of 100 tickets:{" "}
                   </div>
-                  <div>2 tickets: 0.05%</div>
-                  <div>50 tickets: 2.45%</div>
-                  <div>100 tickets: 4.95%</div>
+                  <div>5 tickets: 10%</div>
+                  <div>20 tickets: 20%</div>
+                  <div>100 tickets: 30%</div>
                 </Space>
               </div>
             }
@@ -202,12 +212,12 @@ function BuyTicketsModal({
             <QuestionCircleOutlined />
           </Tooltip>
         </div>
-        <div>{cost} BUSD</div>
+        <div>{cost.toString()} BUSD</div>
       </div>
       <Divider />
       <div className="buyTicketsModal-title">
         <div>You Pay</div>
-        <div>{cost} BUSD</div>
+        <div>{cost.toString()} BUSD</div>
       </div>
       <div className="buyTicketsModal-buyInstant">
         <Button type="primary" shape="round" onClick={buyInstant}>
