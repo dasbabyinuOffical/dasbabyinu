@@ -22,8 +22,7 @@ function HowToPlay() {
           >
             <p style={{ color: "blueviolet" }}>Buy Tickets</p>
             <p>
-              Prices are set when the round starts, equal to 5 USD in CAKE per
-              ticket.
+              Prices are set when the round starts, equal to 1 BUSD per ticket.
             </p>
           </Card>
         </Col>
