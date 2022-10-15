@@ -10,11 +10,6 @@ const columns = [
     key: "ID",
   },
   {
-    title: "chainId",
-    dataIndex: "chainId",
-    key: "chainId",
-  },
-  {
     title: "contractAddress",
     dataIndex: "contractAddress",
     key: "contractAddress",

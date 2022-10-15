@@ -25,7 +25,7 @@ function Staking() {
       <Tabs.TabPane tab="Logs" key="5">
         <Log />
       </Tabs.TabPane>
-      <Tabs.TabPane tab="balances" key="5">
+      <Tabs.TabPane tab="balances" key="6">
         <Balance />
       </Tabs.TabPane>
     </Tabs>
