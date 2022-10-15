@@ -5,6 +5,7 @@ import Strategy from "./Strategy";
 import Contract from "./Contract";
 import Record from "./Record";
 import Log from "./Log";
+import Balance from "./Balance";
 
 function Staking() {
   return (
@@ -23,6 +24,9 @@ function Staking() {
       </Tabs.TabPane>
       <Tabs.TabPane tab="Logs" key="5">
         <Log />
+      </Tabs.TabPane>
+      <Tabs.TabPane tab="balances" key="5">
+        <Balance />
       </Tabs.TabPane>
     </Tabs>
   );
