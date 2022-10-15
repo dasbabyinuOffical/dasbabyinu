@@ -86,7 +86,7 @@ function Contract() {
         .then((response) => response.json())
         .then((data) => {
           const d = data.map((item: DataType, index: number) => ({
-            key: index + 1,
+            key: item.ID,
             ID: item.ID,
             chainId: item.chainId,
             contractAddress: item.contractAddress,
