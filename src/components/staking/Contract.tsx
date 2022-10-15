@@ -20,6 +20,16 @@ const columns = [
     key: "contractAddress",
   },
   {
+    title: "contractTime",
+    dataIndex: "contractTime",
+    key: "contractTime",
+  },
+  {
+    title: "isSecurity",
+    dataIndex: "isSecurity",
+    key: "isSecurity",
+  },
+  {
     title: "symbol",
     dataIndex: "symbol",
     key: "symbol",
@@ -57,6 +67,8 @@ interface DataType {
   chainId: number;
   sellPosition: number;
   contractAddress: string;
+  contractTime: string;
+  isSecurity: boolean;
   symbol: string;
   priceUsd: string;
   buyTax: number;
@@ -78,6 +90,8 @@ function Contract() {
             ID: item.ID,
             chainId: item.chainId,
             contractAddress: item.contractAddress,
+            contractTime: item.contractTime,
+            isSecurity: item.isSecurity,
             symbol: item.symbol,
             priceUsd: item.priceUsd,
             buyTax: item.buyTax,
