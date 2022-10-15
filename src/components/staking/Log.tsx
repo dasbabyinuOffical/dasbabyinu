@@ -65,7 +65,7 @@ function Log() {
           }));
           setWallets(d);
         });
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);

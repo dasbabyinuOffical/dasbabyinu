@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 
-const url = "http://127.0.0.1:8080/bsc/contracts";
+const url = "http://dasbabyinu.com/api/bsc/contracts";
 
 const columns = [
   {
@@ -87,7 +87,7 @@ function Contract() {
           }));
           setWallets(d);
         });
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
