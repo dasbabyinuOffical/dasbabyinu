@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 
-const url = "http://127.0.0.1:8080/bsc/wallets";
+const url = "http://dasbabyinu.com/api/bsc/wallets";
 
 const columns = [
   {
