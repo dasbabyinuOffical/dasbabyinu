@@ -1,32 +1,16 @@
 import React from "react";
 import { Tabs } from "antd";
-import Wallet from "./Wallet";
-import Strategy from "./Strategy";
-import Contract from "./Contract";
-import Record from "./Record";
-import Log from "./Log";
-import Balance from "./Balance";
+import Pool from "./Pool";
+import AddPool from "./AddPool";
 
 function Staking() {
   return (
     <Tabs defaultActiveKey="1">
-      <Tabs.TabPane tab="Wallet" key="1">
-        <Wallet />
+      <Tabs.TabPane tab="Pool" key="1">
+        <Pool />
       </Tabs.TabPane>
-      <Tabs.TabPane tab="Strategy" key="2">
-        <Strategy />
-      </Tabs.TabPane>
-      <Tabs.TabPane tab="Contracts" key="3">
-        <Contract />
-      </Tabs.TabPane>
-      <Tabs.TabPane tab="Records" key="4">
-        <Record />
-      </Tabs.TabPane>
-      <Tabs.TabPane tab="Logs" key="5">
-        <Log />
-      </Tabs.TabPane>
-      <Tabs.TabPane tab="Balances" key="6">
-        <Balance />
+      <Tabs.TabPane tab="AddPool" key="2">
+        <AddPool />
       </Tabs.TabPane>
     </Tabs>
   );
