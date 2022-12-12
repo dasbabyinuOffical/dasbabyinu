@@ -29,7 +29,7 @@ function Pool() {
         setData(rewards);
       })();
      
-    }, 60000)
+    }, 5000)
 
     return ()=>{
       clearInterval(timer);

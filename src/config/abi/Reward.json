@@ -225,6 +225,11 @@
                 "internalType":"uint256",
                 "name":"pid",
                 "type":"uint256"
+            },
+            {
+                "internalType":"address",
+                "name":"sender",
+                "type":"address"
             }
         ],
         "name":"rewards",

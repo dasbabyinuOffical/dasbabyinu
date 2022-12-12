@@ -3,7 +3,7 @@ import moment from "moment";
 import rewardAbi from "../config/abi/Reward.json";
 import { getDecimalOf,getLatestBlock,approve,getSymbol,getBlock} from "./wallet";
 
-const RewardContract = "0xA6F76D1d583b8652e26f2984680259F82E0512c9";
+const RewardContract = "0x4Da5f44019c9908E887Af8a2288D380daf8C7d8F";
 declare var window: any;
 
 export interface Reward{
@@ -68,7 +68,7 @@ export async function Rewards(poolId:number):Promise<Reward>{
 
   const rewardDecimal  = await getDecimalOf(pool.rewardToken);
 
-  const userReward = await daiContractWithSigner.rewards(pid);
+  const userReward = await daiContractWithSigner.rewards(pid,sender);
 
   const depositSymbol = await getSymbol(pool.depositToken);
 
@@ -134,7 +134,7 @@ export async function Stake(pid:number,token:string,amount:number):Promise<strin
     gasLimit:gas,
   });
 
-  await tx.wait();
+  tx.wait();
   return tx.hash;
 }
 
@@ -149,7 +149,7 @@ export async function Reedem(pid:number):Promise<string>{
     gasLimit:gas,
   });
 
-  await tx.wait();
+  tx.wait();
   return tx.hash;
 }
 
@@ -164,7 +164,7 @@ export async function Take(pid:number):Promise<string>{
     gasLimit:gas,
   });
 
-  await tx.wait();
+  tx.wait();
   return tx.hash;
 }
 
