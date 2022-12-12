@@ -45,6 +45,19 @@ export async function getBalanceOf(
   return ret;
 }
 
+export async function getSymbol(
+  daiAddress: string,
+): Promise<string> {
+  if (!window.ethereum) {
+    return "0.0";
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, abi, providerWeb3);
+  const symbol = await daiContract.symbol();
+  return symbol;
+}
+
 export async function getAllowance(
   daiAddress: string,
   owner: string,
@@ -89,6 +102,12 @@ export async function approve(
 export async function getLatestBlock():Promise<any>{
   const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
   const block = (await providerWeb3.getBlock("latest"));
+  return block;
+}
+
+export async function getBlock(blocknumber:number):Promise<any>{
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const block = (await providerWeb3.getBlock(blocknumber));
   return block;
 }
 
