@@ -34,12 +34,12 @@ function AddPool() {
       </Form.Item>
 
       <Form.Item
-        label="BaseRewardToken"
-        name="BaseRewardToken"
+        label="RewardToken"
+        name="RewardToken"
         rules={[
           {
             required: true,
-            message: "Please input your Base Reward Token Conctract Address!",
+            message: "Please input your Reward Token Conctract Address!",
           },
         ]}
       >
@@ -47,48 +47,12 @@ function AddPool() {
       </Form.Item>
 
       <Form.Item
-        label="BaseRewardTokenAmount"
-        name="BaseRewardTokenAmount"
+        label="RewardTokenAmount"
+        name="RewardTokenAmount"
         rules={[
           {
             required: true,
-            message: "Please input your Base Reward Token Amount!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="ExtraRewardToken"
-        name="ExtraRewardToken"
-        rules={[
-          { required: false, message: "Please input your Extra Reward Token!" },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="ExtraRewardTokenAmount"
-        name="ExtraRewardTokenAmount"
-        rules={[
-          {
-            required: false,
-            message: "Please input your Extra Reward Token Amount!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="InstantRedeemDays"
-        name="InstantRedeemDays"
-        rules={[
-          {
-            required: true,
-            message: "Please input the Instant Redeem Days !",
+            message: "Please input your Reward Token Amount!",
           },
         ]}
       >
