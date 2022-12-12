@@ -1,14 +1,35 @@
-import { Button, Checkbox, DatePicker, Form, Input } from "antd";
+import { Button,DatePicker, Form, Input,notification} from "antd";
 import React from "react";
+import { CreatePool } from "../../util/staking_pool";
 
 function AddPool() {
+    const openNotification = (message: string) => {
+    const args = {
+      message: "Add pool Result",
+      description: message,
+      duration: 5,
+    };
+    notification.open(args);
+  };
+
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    const depositToken = values.StakeToken;
+    const rewardToken  = values.RewardToken;
+    const rewardAmount = values.RewardTokenAmount;
+    const endDate = Math.round(values.EndDate.valueOf()/1000);
+    CreatePool(depositToken,rewardToken,rewardAmount,endDate).then(
+      (res) => {
+        console.log("res is:", res);
+        openNotification("txHash is:"+res);
+      }
+    );
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+
 
   return (
     <Form

@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import RouterAbi from "../config/abi/IPancakeRouter02.json";
 
 declare var window: any;
@@ -13,6 +13,7 @@ const abi = [
 
   // Authenticated Functions
   "function transfer(address to, uint amount) returns (bool)",
+  "function approve(address spender, uint amount) public returns(bool)",
 
   // Events
   "event Transfer(address indexed from, address indexed to, uint amount)",
@@ -59,6 +60,29 @@ export async function getAllowance(
   // get allow
   const ret = ethers.utils.formatUnits(allow, 0);
   return ret;
+}
+
+export async function approve(
+  daiAddress: string,
+  spender: string,
+  amount: BigNumber,
+): Promise<Boolean> {
+  if (!window.ethereum) {
+    return false;
+  }
+
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const daiContract = new ethers.Contract(daiAddress, abi, providerWeb3);
+  const signer = providerWeb3.getSigner();
+  const daiContractWithSigner = daiContract.connect(signer);
+  const status = await daiContractWithSigner.approve(spender,amount);
+  return status;
+}
+
+export async function getLatestBlock():Promise<any>{
+  const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
+  const block = (await providerWeb3.getBlock("latest"));
+  return block;
 }
 
 export async function getDecimalOf(daiAddress: string): Promise<number> {
