@@ -45,7 +45,7 @@ function Pool() {
             hoverable
             key={item.id}
             bordered={true}
-            cover={<label style={{ marginLeft: "4rem" }}>{item.id}:{item.depositSymbol}</label>}
+            cover={<label style={{ marginLeft: "4rem" }}>{item.id}:{item.depositSymbol}--{item.rewardSymbol}</label>}
             style={{
               width: "18.5rem",
               height: "23rem",
@@ -77,7 +77,7 @@ function Pool() {
             <h4>Staking: {item.amount} {item.depositSymbol}</h4>
             <h4>Reward: {item.reward} {item.rewardSymbol}</h4>
             <h4>RewardPerDay: {item.rewardPerDay} {item.depositSymbol}</h4>
-            <PoolAction />
+            <PoolAction poolId={item.id}/>
           </Card>
         );
       })}
