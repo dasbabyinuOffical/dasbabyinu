@@ -1,6 +1,6 @@
 import { Button,notification } from "antd";
 import React, { useState } from "react";
-import { Claim,Take } from "../../util/staking_pool";
+import { Claim,Take,Reedem } from "../../util/staking_pool";
 import { StakingModal } from "./StakingModal";
 
 function PoolAction(props:{poolId:number}) {
@@ -14,7 +14,6 @@ function PoolAction(props:{poolId:number}) {
     setModalVisible(false);
   };
 
-  console.log("in pool action:",props.poolId);
   const openNotification = (message: string) => {
     const args = {
       message: "Add pool Result",
@@ -40,7 +39,7 @@ function PoolAction(props:{poolId:number}) {
 
   const redeemAction = ()=>{
     (async function(){
-      const hash = await Take(props.poolId);
+      const hash = await Reedem(props.poolId);
       openNotification("txHash is:"+hash);
     })()
   }
@@ -53,7 +52,6 @@ function PoolAction(props:{poolId:number}) {
         style={{ padding: "5px", margin: "4px" }}
         onClick={() => {
           setModalVisible(true);
-          console.log("visible:",isModalVisible);
         }}
       >
         Stake

@@ -148,7 +148,6 @@ function SwapSelectToken() {
           dataSource={Tokens}
           renderItem={(item) => {
             let url = BaseUrl + item.contract + ".png";
-            console.log("output contract is:", item.contract);
             if (
               item.contract === "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
             ) {

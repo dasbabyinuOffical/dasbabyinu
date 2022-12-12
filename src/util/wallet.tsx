@@ -117,7 +117,6 @@ export async function getDecimalOf(daiAddress: string): Promise<number> {
   }
 
   const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
-  console.log("contract is:", daiAddress);
   if (daiAddress === "BNB") {
     return 18;
   }

@@ -10,7 +10,6 @@ function Pool() {
   useEffect(()=>{
      (async function(){
         const poolId = await PoolId();
-        console.log("poolId is:",poolId);
         let rewards:Reward[] = [];
         for(let i = 1;i < poolId;i++){
            rewards.push(await Rewards(i));
@@ -21,7 +20,6 @@ function Pool() {
     const timer =  setInterval(() => {
       (async function(){
         const poolId = await PoolId();
-        console.log("poolId is:",poolId);
         let rewards:Reward[] = [];
         for(let i = 1;i <= poolId;i++){
            rewards.push(await Rewards(i));

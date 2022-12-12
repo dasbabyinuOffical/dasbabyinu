@@ -76,17 +76,15 @@ export async function Rewards(poolId:number):Promise<Reward>{
 
   let rewardPerDay = ethers.BigNumber.from(0);
   if(pool.depositAmount > 0){
-    rewardPerDay = ethers.BigNumber.from(user.amount).mul(ethers.BigNumber.from(pool.rewardPerBlock)).mul(ethers.BigNumber.from(3*3600*24)).div(ethers.BigNumber.from(pool.depositAmount));  
+    rewardPerDay = ethers.BigNumber.from(user.amount).mul(ethers.BigNumber.from(pool.rewardPerBlock)).mul(ethers.BigNumber.from(1200*24)).div(ethers.BigNumber.from(pool.depositAmount));  
   }
-  let totalRewardPerDay = ethers.BigNumber.from(pool.rewardPerBlock).mul(ethers.BigNumber.from(3*3600*24));
+  let totalRewardPerDay = ethers.BigNumber.from(pool.rewardPerBlock).mul(ethers.BigNumber.from(1200*24));
 
   const startBlock = await getBlock(pool.startBlock.toNumber());
   const startTime = moment(startBlock.timestamp*1000).format("YYYY-MM-DD HH:mm:ss"); 
 
   const endTimestamp = startBlock.timestamp+(pool.endBlock.toNumber()-pool.startBlock.toNumber())*3;
   const endTime = moment(endTimestamp*1000).format("YYYY-MM-DD HH:mm:ss"); 
-
-  console.log("start block:",pool.startBlock.toNumber(),startBlock.timestamp);
 
   const reward:Reward = {
     id : poolId,
