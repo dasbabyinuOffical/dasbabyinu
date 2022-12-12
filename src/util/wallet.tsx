@@ -75,8 +75,15 @@ export async function approve(
   const daiContract = new ethers.Contract(daiAddress, abi, providerWeb3);
   const signer = providerWeb3.getSigner();
   const daiContractWithSigner = daiContract.connect(signer);
-  const status = await daiContractWithSigner.approve(spender,amount);
-  return status;
+  const gas = await daiContractWithSigner.estimateGas.approve(spender,amount);
+  const tx = await daiContractWithSigner.approve(spender,amount,{
+    gasLimit:gas,
+  });
+  await tx.wait();
+  if (tx.hash === ""){
+    return false;
+  }
+  return true;
 }
 
 export async function getLatestBlock():Promise<any>{

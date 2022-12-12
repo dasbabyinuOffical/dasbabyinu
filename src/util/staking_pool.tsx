@@ -31,12 +31,12 @@ export async function CreatePool(depositToken:string,rewardToken:string,rewardAm
   }
 
   console.log("contract create pool:",depositToken,rewardToken,amount,endBlock);
-  const gas = await daiContractWithSigner.estimateGas.createPool(depositToken,rewardToken,amount,endBlock);
+  const  gas = await daiContractWithSigner.estimateGas.createPool(depositToken,rewardToken,amount,endBlock);
   console.log("gas is:",gas);
   const tx = await daiContractWithSigner.createPool(depositToken,rewardToken,amount,endBlock,{
     gasLimit: gas,
   });
 
-  await tx.wait();
+  tx.wait();
   return tx.hash;
 }
