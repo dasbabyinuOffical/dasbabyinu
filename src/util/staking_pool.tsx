@@ -9,6 +9,8 @@ declare var window: any;
 export interface Reward{
   id: number,
   depositSymbol:string,
+  depositToken:string,
+  rewardToken:string,
   rewardSymbol: string,
   supply:string,
   depositAmount: string,
@@ -86,9 +88,13 @@ export async function Rewards(poolId:number):Promise<Reward>{
   const endTimestamp = startBlock.timestamp+(pool.endBlock.toNumber()-pool.startBlock.toNumber())*3;
   const endTime = moment(endTimestamp*1000).format("YYYY-MM-DD HH:mm:ss"); 
 
+  console.log("token is:",pool.depositToken);
+
   const reward:Reward = {
     id : poolId,
-    depositSymbol:depositSymbol,
+    depositToken: pool.depositToken,
+    depositSymbol: depositSymbol,
+    rewardToken:  pool.rewardToken,
     rewardSymbol: rewardSymbol, 
     supply:ethers.utils.formatUnits(pool.supply,rewardDecimal),
     depositAmount:  ethers.utils.formatUnits(pool.depositAmount,pool.depositTokenDecimal),

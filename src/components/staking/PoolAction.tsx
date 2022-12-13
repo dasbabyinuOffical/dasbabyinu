@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Claim,Take,Reedem } from "../../util/staking_pool";
 import { StakingModal } from "./StakingModal";
 
-function PoolAction(props:{poolId:number}) {
+function PoolAction(props:{poolId:number,depositToken:string,rewardToken:string}) {
   const [isModalVisible, setModalVisible] = useState(false);
   const handleCancel = () => {
     setModalVisible(false);
@@ -86,6 +86,8 @@ function PoolAction(props:{poolId:number}) {
         handleOk={handleOk}
         handleCancel={handleCancel}
         poolId={props.poolId}
+        depositToken={props.depositToken}
+        rewardToken={props.rewardToken}
       />
     </div>
   );

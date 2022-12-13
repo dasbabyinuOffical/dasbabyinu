@@ -7,11 +7,15 @@ export function StakingModal({
   handleOk,
   handleCancel,
   poolId,
+  depositToken,
+  rewardToken,
 }: {
   isModalVisible: boolean;
   handleOk: () => void;
   handleCancel: (e: React.MouseEvent<HTMLElement> | null) => void;
   poolId: number;
+  depositToken:string;
+  rewardToken:string;
 }) {
 
    const openNotification = (message: string) => {
@@ -41,27 +45,37 @@ export function StakingModal({
 
   return (
     <>
-      <Modal title="Basic Modal" visible={isModalVisible} onCancel={handleCancel} footer={null}>
+      <Modal title="Token Staking" visible={isModalVisible} onCancel={handleCancel} footer={null}>
         <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        initialValues={{depositToken:`${depositToken}`,rewardToken:`${rewardToken}`}}
       >
         <Form.Item
           label="DepositToken"
-          name="DepositToken"
+          name="depositToken"
           rules={[
             {
-              required: true,
-              message: "Please input your Deposit Token Contract Address!",
+              required: false,
             },
           ]}
         >
-          <Input />
+          <Input  disabled/>
+        </Form.Item>
+        <Form.Item
+          label="RewardToken"
+          name="rewardToken"
+          rules={[
+            {
+              required: false,
+            },
+          ]}
+        >
+          <Input  disabled/>
         </Form.Item>
         <Form.Item
           label="DepositTokenAmount"
