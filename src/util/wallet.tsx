@@ -44,7 +44,6 @@ export async function getBalanceOf(
   // ge decimal
   const decimal = await daiContract.decimals();
   const ret = ethers.utils.formatUnits(balance, decimal);
-  console.log("ret is:", ret);
   return ret;
 }
 
