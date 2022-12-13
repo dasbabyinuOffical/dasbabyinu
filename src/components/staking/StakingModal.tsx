@@ -9,6 +9,7 @@ export function StakingModal({
   poolId,
   depositToken,
   rewardToken,
+  depositTokenBalance,
 }: {
   isModalVisible: boolean;
   handleOk: () => void;
@@ -16,6 +17,7 @@ export function StakingModal({
   poolId: number;
   depositToken:string;
   rewardToken:string;
+  depositTokenBalance:string;
 }) {
 
    const openNotification = (message: string) => {
@@ -53,7 +55,7 @@ export function StakingModal({
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        initialValues={{depositToken:`${depositToken}`,rewardToken:`${rewardToken}`}}
+        initialValues={{depositToken:`${depositToken}`,rewardToken:`${rewardToken}`,depositTokenAmount:`${depositTokenBalance}`}}
       >
         <Form.Item
           label="DepositToken"
@@ -79,11 +81,10 @@ export function StakingModal({
         </Form.Item>
         <Form.Item
           label="DepositTokenAmount"
-          name="DepositTokenAmount"
+          name="depositTokenAmount"
           rules={[
             {
               required: true,
-              message: "Please input your Deposit Token Amount!",
             },
           ]}
         >

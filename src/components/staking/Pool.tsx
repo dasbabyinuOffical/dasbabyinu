@@ -75,7 +75,7 @@ function Pool() {
             <h4>Staking: {item.amount} {item.depositSymbol}</h4>
             <h4>Reward: {item.reward} {item.rewardSymbol}</h4>
             <h4>RewardPerDay: {item.rewardPerDay} {item.depositSymbol}</h4>
-            <PoolAction poolId={item.id} depositToken={item.depositToken} rewardToken={item.rewardToken}/>
+            <PoolAction poolId={item.id} depositToken={item.depositToken} rewardToken={item.rewardToken} depositTokenBalance={item.depositTokenBalance}/>
           </Card>
         );
       })}

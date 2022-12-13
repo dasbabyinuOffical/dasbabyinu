@@ -1,7 +1,7 @@
-import {ethers } from "ethers";
+import {ethers} from "ethers";
 import moment from "moment";
 import rewardAbi from "../config/abi/Reward.json";
-import { getDecimalOf,getLatestBlock,approve,getSymbol,getBlock} from "./wallet";
+import { getDecimalOf,getLatestBlock,approve,getSymbol,getBlock, getBalanceOf} from "./wallet";
 
 const RewardContract = "0x4Da5f44019c9908E887Af8a2288D380daf8C7d8F";
 declare var window: any;
@@ -10,6 +10,7 @@ export interface Reward{
   id: number,
   depositSymbol:string,
   depositToken:string,
+  depositTokenBalance:string,
   rewardToken:string,
   rewardSymbol: string,
   supply:string,
@@ -88,12 +89,13 @@ export async function Rewards(poolId:number):Promise<Reward>{
   const endTimestamp = startBlock.timestamp+(pool.endBlock.toNumber()-pool.startBlock.toNumber())*3;
   const endTime = moment(endTimestamp*1000).format("YYYY-MM-DD HH:mm:ss"); 
 
-  console.log("token is:",pool.depositToken);
+  const depositTokenBalance = await getBalanceOf(pool.depositToken,sender);
 
   const reward:Reward = {
     id : poolId,
     depositToken: pool.depositToken,
     depositSymbol: depositSymbol,
+    depositTokenBalance:  depositTokenBalance,
     rewardToken:  pool.rewardToken,
     rewardSymbol: rewardSymbol, 
     supply:ethers.utils.formatUnits(pool.supply,rewardDecimal),

@@ -23,10 +23,13 @@ const RouterContract = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
 
 export async function getBalanceOf(
   daiAddress: string,
-  address: string
+  address: string|null
 ): Promise<string> {
   if (!window.ethereum) {
     return "0.0";
+  }
+  if (address === null){
+    return "0.0"
   }
 
   const providerWeb3 = new ethers.providers.Web3Provider(window.ethereum);
