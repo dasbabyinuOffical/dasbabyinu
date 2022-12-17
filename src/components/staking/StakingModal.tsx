@@ -30,8 +30,9 @@ export function StakingModal({
   };
 
     const onFinish = (values: any) => {
-      const depositToken = values.DepositToken;
-      const depositAmount = values.DepositTokenAmount;
+      console.log("value is:",values);
+      const depositToken = values.depositToken;
+      const depositAmount = values.depositTokenAmount;
       Stake(poolId,depositToken,depositAmount).then(
         (res) => {
           console.log("res is:", res);

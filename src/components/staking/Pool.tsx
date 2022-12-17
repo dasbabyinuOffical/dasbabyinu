@@ -12,7 +12,8 @@ function Pool() {
         const poolId = await PoolId();
         let rewards:Reward[] = [];
         for(let i = 1;i < poolId;i++){
-           rewards.push(await Rewards(i));
+          const reward: Reward = (await Rewards(i));
+           rewards.push(reward);
         }
         setData(rewards);
 
