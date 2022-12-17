@@ -82,7 +82,7 @@ export async function Rewards(poolId:number):Promise<Reward>{
   let totalRewardPerDay = ethers.BigNumber.from(pool.supply).div(pool.endBlock.sub(pool.startBlock)).mul(blockPerDay);
 
   let rewardPerDay = ethers.BigNumber.from(0);
-  if(pool.depositAmount.toNumber() > 0){
+  if(pool.depositAmount.gt(ethers.BigNumber.from(0))){
     rewardPerDay = ethers.BigNumber.from(user.amount).mul(totalRewardPerDay).div(ethers.BigNumber.from(pool.depositAmount));
   }
 
