@@ -3,7 +3,7 @@ import moment from "moment";
 import rewardAbi from "../config/abi/Reward.json";
 import { getDecimalOf,getLatestBlock,approve,getSymbol,getBlock, getBalanceOf} from "./wallet";
 
-const RewardContract = "0xcF58A91A7eF50Cd04A6255d679F75F9c47D37198";
+const RewardContract = "0x64519Dca5801945bEda4ae3FB27Be9D5A7bfb9EF";
 declare var window: any;
 
 export interface Reward{
